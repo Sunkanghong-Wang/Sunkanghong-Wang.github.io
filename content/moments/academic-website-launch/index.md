@@ -1,16 +1,16 @@
 ---
 title: "🎉 Launching my personal academic website"
 date: 2026-05-10
-description: "The site went live during my graduation trip—often working alongside my partner as we both chipped away at our own tasks."
-aliases:
-  - /news/academic-website-launch/
+description: "Started in a café during my graduation trip, shaped in small passes over weeks, and finally live—just the way I hoped it would be."
 ---
 
-This site comes online during a stretch of time that already feels special to me: **a graduation trip**.
+This site has been a while in the making ☕
 
-Between sightseeing and downtime, I kept shaping the layout and content here in small passes. Even better, my **partner** was often right beside me—each of us at our own laptop, heads down, occasionally comparing notes before diving back in. Quiet, companionable, and oddly productive.
+It started on April 27th, in a café somewhere on my graduation trip. I opened up Cursor and just… started vibe coding. Turned out to be surprisingly, almost unreasonably effective 🤩. My partner was sitting right beside me the whole time, which made it even better. We were traveling, but we had this quiet habit of carving out a little time each day for something creative or exploratory.
 
-Shipping this corner of the internet while sharing that rhythm on the road makes me grateful—and genuinely happy.
+After the trip, I came back to the site occasionally—tweaking, refining, nudging things into place—until today, when it finally feels like what I had in mind. So: it's live 🚀
 
-<img src="./image.png" alt="Taken at a coffee shop in Guiyang, Guizhou, China, on April 27, 2026." style="width:70%;height:auto;display:block;margin-inline:auto;border-radius:8px;box-shadow:0 1px 3px rgba(15,25,50,0.08);" loading="lazy" decoding="async" />
-<p class="md-img-caption">Taken at a coffee shop in Guiyang, Guizhou, China, on April 27, 2026.</p>
+I don't think it's perfect. I don't think it ever will be—and honestly, that's fine 😄. I'll keep improving it as I go. If you spot anything off, or have a suggestion, I'd genuinely love to hear it. You can find my contact details on the About page 👋
+
+<img src="./image.png" alt="The café where it all started — Guiyang, Guizhou, China, April 27, 2026." style="width:70%;height:auto;display:block;margin-inline:auto;border-radius:8px;box-shadow:0 1px 3px rgba(15,25,50,0.08);" loading="lazy" decoding="async" />
+<p class="md-img-caption">The café where it all started — Guiyang, Guizhou, China, April 27, 2026.</p>
