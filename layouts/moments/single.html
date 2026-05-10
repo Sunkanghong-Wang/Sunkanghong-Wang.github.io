@@ -1,0 +1,16 @@
+{{- define "main" }}
+<article class="about-page moments-page moments-single-page">
+  <section class="about-section moments-single-inner">
+    <header class="moments-single-header">
+      {{- $iso := .Date.Format "2006-01-02" }}
+      {{- $human := .Date.Format "Jan 2, 2006" }}
+      <time class="moments-date moments-single-date" datetime="{{ $iso }}">{{ $human }}</time>
+      <h1 class="moments-single-title">{{ .Title }}</h1>
+    </header>
+    <div class="moments-single-content">
+      {{- .Content }}
+    </div>
+  </section>
+</article>
+{{- partial "moments_image_lightbox.html" . }}
+{{- end }}

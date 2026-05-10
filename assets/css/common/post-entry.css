@@ -1,0 +1,1214 @@
+.first-entry {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 200px;
+    margin: var(--gap) 0 calc(var(--gap) * 2) 0;
+}
+
+.first-entry .entry-header {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 8;
+}
+
+.first-entry .entry-header h1 {
+    font-size: 34px;
+    line-height: 1.3;
+}
+
+.first-entry .entry-content {
+    margin: 14px 0;
+    font-size: 16px;
+    -webkit-line-clamp: 8;
+}
+
+.first-entry .entry-footer {
+    font-size: 14px;
+}
+
+.home-info .entry-content {
+    -webkit-line-clamp: unset;
+}
+
+.post-entry {
+    position: relative;
+    margin-bottom: var(--gap);
+    padding: var(--gap);
+    background: var(--entry);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    transition:
+        transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1),
+        box-shadow 0.35s cubic-bezier(0.22, 0.61, 0.36, 1),
+        border-color 0.25s ease,
+        background 0.25s ease;
+    will-change: transform;
+}
+
+.post-entry:hover {
+    border-color: var(--primary);
+    background: var(--entry);
+    box-shadow: 0 14px 32px -12px rgba(0, 0, 0, 0.18),
+        0 4px 10px -4px rgba(0, 0, 0, 0.08);
+    transform: translateY(-3px);
+}
+
+.post-entry .entry-cover img {
+    transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1),
+        filter 0.35s ease;
+    will-change: transform;
+}
+
+.post-entry:hover .entry-cover img {
+    transform: scale(1.04);
+    filter: saturate(1.05);
+}
+
+/* Publications cards: full-card .entry-link sits under content; let clicks pass through except cover + footer links */
+.pub-layout .post-entry > .entry-link {
+    z-index: 0;
+}
+
+.pub-layout .post-entry > .entry-wrapper,
+.pub-layout .post-entry > .entry-hover-info {
+    position: relative;
+    z-index: 1;
+}
+
+.pub-layout .post-entry > .entry-wrapper,
+.pub-layout .post-entry > .entry-wrapper .entry-body,
+.pub-layout .post-entry > .entry-wrapper .entry-body * {
+    pointer-events: none;
+}
+
+.pub-layout .post-entry > .entry-wrapper .entry-cover {
+    pointer-events: none;
+}
+
+.pub-layout .post-entry > .entry-hover-info,
+.pub-layout .post-entry > .entry-hover-info * {
+    pointer-events: none;
+}
+
+/* Specificity must beat `.entry-body * { pointer-events: none }` so footer/GitHub links stay clickable */
+.pub-layout .post-entry > .entry-wrapper .entry-cover .pub-cover-lightbox-trigger,
+.pub-layout .post-entry > .entry-wrapper .entry-cover .pub-cover-lightbox-trigger *,
+.pub-layout .post-entry > .entry-wrapper .entry-body .entry-footer a {
+    pointer-events: auto;
+}
+
+.pub-layout .post-entry .pub-cover-lightbox-trigger {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    border-radius: inherit;
+    cursor: zoom-in;
+    line-height: 0;
+}
+
+.pub-layout .post-entry .pub-cover-lightbox-trigger:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+}
+
+.pub-layout .post-entry:hover .pub-cover-lightbox-trigger img,
+.pub-layout .post-entry:focus-within .pub-cover-lightbox-trigger img {
+    transform: none;
+    filter: none;
+}
+
+.post-entry .entry-header h2 {
+    transition: color 0.25s ease;
+}
+
+.post-entry:hover .entry-header h2 {
+    color: var(--primary);
+}
+
+.tag-entry .entry-cover {
+    display: none;
+}
+
+.entry-header h2 {
+    font-size: 20px;
+    line-height: var(--lineheight);
+}
+
+.entry-content {
+    margin: 20px 10px;
+    color: var(--secondary);
+    font-size: var(--entrysize);
+    line-height: var(--lineheight);
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 8;
+}
+
+.entry-footer {
+    color: var(--content);
+    font-size: var(--entrysize);
+}
+
+.entry-link {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.entry-hint {
+    color: var(--secondary);
+}
+
+.entry-hint-parent {
+    display: flex;
+    justify-content: space-between;
+}
+
+.entry-cover {
+    font-size: var(--entrysize);
+    margin-bottom: var(--gap);
+    text-align: center;
+}
+
+.entry-cover img {
+    border-radius: var(--radius);
+    width: 100%;
+    height: auto;
+}
+
+.entry-cover a {
+    color: var(--secondary);
+    box-shadow: 0 1px 0 var(--primary);
+}
+
+/* Publications: image on the left, content on the right */
+.post-entry .entry-wrapper {
+    display: flex;
+    gap: var(--gap);
+    align-items: center;
+}
+
+.post-entry .entry-cover {
+    flex-shrink: 0;
+    width: 160px;
+    margin-bottom: 0;
+    text-align: left;
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.post-entry .entry-cover img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    object-fit: cover;
+}
+
+.post-entry .entry-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.post-entry .entry-header {
+    margin-bottom: 8px;
+}
+
+.post-entry .entry-content {
+    margin: 0 0 8px 0;
+    -webkit-line-clamp: 3;
+}
+
+.post-entry .entry-footer {
+    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.meta-year {
+    color: var(--secondary);
+}
+
+/* Shared “journal / venue” pill (cards, biblio list, ongoing papers, conferences) */
+.meta-journal,
+.pub-biblio-journal,
+em.ongoing-papers-journal,
+.conf-venue-pill {
+    color: #1a56db;
+    background: #eff6ff;
+    padding: 2px 10px;
+    border-radius: 9999px;
+    font-style: italic;
+    font-weight: var(--semibold);
+    font-size: 0.875em;
+    line-height: 1.6;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+}
+
+.meta-journal {
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.pub-biblio-journal,
+em.ongoing-papers-journal,
+.conf-venue-pill {
+    display: inline;
+}
+
+.dark .meta-journal,
+.dark .pub-biblio-journal,
+.dark em.ongoing-papers-journal,
+.dark .conf-venue-pill {
+    color: #93c5fd;
+    background: rgba(59, 130, 246, 0.18);
+}
+
+.pub-meta-row1 {
+    color: var(--secondary);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.author-self {
+    color: var(--primary);
+    font-weight: var(--semibold);
+    text-decoration: underline;
+    text-decoration-style: solid;
+    text-underline-offset: 2px;
+    text-decoration-thickness: 1px;
+}
+
+.pub-meta-row2 {
+    margin-top: 4px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 10px;
+}
+
+.pub-meta-row2 .pub-meta-sep {
+    color: var(--secondary);
+    font-weight: 400;
+    user-select: none;
+}
+
+/* GitHub in card footer sits above full-card .entry-link */
+.post-entry .pub-meta-row2 a.pub-github-bubble {
+    position: relative;
+    z-index: 2;
+}
+
+/* ============== Hover preview on publication cards ============== */
+.entry-hover-info {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 1px solid transparent;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    transition:
+        max-height 0.4s cubic-bezier(0.22, 0.61, 0.36, 1),
+        opacity 0.3s ease 0.05s,
+        margin-top 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
+        padding-top 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
+        border-top-color 0.3s ease;
+    pointer-events: none;
+}
+
+.entry-hover-info::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+.post-entry:hover .entry-hover-info,
+.post-entry:focus-within .entry-hover-info,
+.pub-biblio-item:hover .entry-hover-info,
+.pub-biblio-item:focus-within .entry-hover-info {
+    max-height: min(85vh, 3200px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    opacity: 1;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top-color: var(--border);
+}
+
+.entry-hover-abstract,
+.entry-hover-keywords {
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.post-entry:hover .entry-hover-abstract,
+.post-entry:focus-within .entry-hover-abstract,
+.pub-biblio-item:hover .entry-hover-abstract,
+.pub-biblio-item:focus-within .entry-hover-abstract {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.12s;
+}
+
+.post-entry:hover .entry-hover-keywords,
+.post-entry:focus-within .entry-hover-keywords,
+.pub-biblio-item:hover .entry-hover-keywords,
+.pub-biblio-item:focus-within .entry-hover-keywords {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.2s;
+}
+
+.entry-hover-tags li {
+    transition: transform 0.2s ease, box-shadow 0.2s ease,
+        background 0.2s ease, color 0.2s ease;
+}
+
+.entry-hover-tags li:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .post-entry,
+    .post-entry .entry-cover img,
+    .pub-biblio-item,
+    .entry-hover-info,
+    .entry-hover-abstract,
+    .entry-hover-keywords {
+        transition: none !important;
+        transform: none !important;
+    }
+
+    .timeline-title-tooltip {
+        transition: none !important;
+    }
+}
+
+.entry-hover-info h4 {
+    margin: 0 0 6px;
+    padding-left: 10px;
+    position: relative;
+    font-size: 13px;
+    font-weight: var(--semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--primary);
+}
+
+.entry-hover-info h4::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 2px;
+    bottom: 2px;
+    width: 2px;
+    border-radius: 2px;
+    background: var(--primary);
+}
+
+.entry-hover-abstract p {
+    margin: 0;
+    color: var(--secondary);
+    font-size: 13px;
+    line-height: 1.65;
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+}
+
+.entry-hover-keywords {
+    margin-top: 12px;
+}
+
+.entry-hover-tags {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.entry-hover-tags li {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 12px;
+    line-height: 26px;
+    font-size: 12px;
+    font-weight: var(--semibold);
+    color: var(--primary);
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.entry-hover-tags li::before {
+    content: "#";
+    margin-right: 4px;
+    color: var(--gray);
+    font-weight: 400;
+}
+
+/* Responsive: stack vertically on small screens */
+@media (max-width: 600px) {
+    .post-entry .entry-wrapper {
+        flex-direction: column;
+    }
+
+    .post-entry .entry-cover {
+        width: 100%;
+        max-width: 240px;
+    }
+}
+
+/* Publications section index (/publications/): white canvas; default .list uses gray --code-bg */
+body.pub-section-list:not(.dark) {
+    background: #ffffff;
+}
+
+/* Strip extra gap above Notes callout; align top rhythm closer to Patents (about-page pad-top 8px, no list page-header) */
+body.pub-section-list main.main > .page-header {
+    margin-top: 8px;
+    margin-bottom: 0;
+}
+
+body.pub-section-list main.main > .page-header h1 {
+    margin: 0 0 10px;
+}
+
+body.pub-section-list .post-content .about-section.patents-feed-section {
+    padding-top: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+    width: fit-content;
+    max-width: 100%;
+}
+
+/* Toolbar row: stretch Notes bubble toward the view toggle (minimal gap) */
+body.pub-section-list .pub-notes-toolbar-main .about-section.patents-feed-section {
+    width: 100%;
+    max-width: 100%;
+}
+
+body.pub-section-list .pub-notes-toolbar-main .patents-notes {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Notes + list/card toggle share one row */
+body.pub-section-list .post-content .about-section.patents-feed-section > .patents-notes {
+    margin-bottom: 0;
+}
+
+.pub-notes-toolbar-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 10px 12px;
+    margin-bottom: 28px;
+}
+
+.pub-notes-toolbar-main {
+    flex: 1 1 0;
+    min-width: min(12rem, 40%);
+}
+
+.pub-notes-toolbar-actions {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+body.pub-section-list .pub-notes-toolbar-actions .pub-view-toolbar-wrap {
+    margin: 0;
+    max-width: none;
+    width: auto;
+}
+
+.pub-view-toolbar-wrap {
+    max-width: var(--pub-layout-max);
+    margin: 0 auto 14px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Solid fallback + fixed hex gradient: avoid color-mix/% >100 which can yield invalid paint → invisible label */
+.pub-view-toggle {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1.25;
+    padding: 11px 22px;
+    border-radius: 999px;
+    border: 1px solid #4d5c82;
+    background-color: #576892;
+    background-image: linear-gradient(180deg, #7f8eb8 0%, #576892 100%);
+    color: #ffffff;
+    cursor: pointer;
+    box-shadow:
+        0 2px 6px rgba(55, 65, 95, 0.28),
+        0 1px 0 rgba(255, 255, 255, 0.22) inset;
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.18s ease,
+        background-color 0.18s ease,
+        border-color 0.18s ease;
+}
+
+.pub-view-toggle:hover {
+    background-color: #6376a3;
+    background-image: linear-gradient(180deg, #8c9ac5 0%, #6376a3 100%);
+    border-color: #556688;
+    box-shadow:
+        0 4px 14px rgba(55, 65, 95, 0.38),
+        0 1px 0 rgba(255, 255, 255, 0.28) inset;
+}
+
+.pub-view-toggle:active {
+    transform: translateY(1px);
+    box-shadow:
+        0 1px 4px rgba(55, 65, 95, 0.35),
+        0 1px 0 rgba(255, 255, 255, 0.18) inset;
+}
+
+.pub-view-toggle:focus-visible {
+    outline: 3px solid rgba(106, 123, 162, 0.55);
+    outline-offset: 3px;
+}
+
+.dark .pub-view-toggle {
+    border-color: #8c9bc5;
+    background-color: #5a6b94;
+    background-image: linear-gradient(180deg, #91a1cf 0%, #5a6b94 100%);
+    color: #f8fafc;
+    box-shadow:
+        0 2px 10px rgba(0, 0, 0, 0.45),
+        0 1px 0 rgba(255, 255, 255, 0.12) inset;
+}
+
+.dark .pub-view-toggle:hover {
+    background-color: #677aad;
+    background-image: linear-gradient(180deg, #a0b0dc 0%, #677aad 100%);
+    border-color: #aab8de;
+}
+
+.pub-bibliography-list {
+    display: none;
+    grid-column: 1 / -1;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* Publications list view: patents-style spine (year | axis | body) + entry ordinals */
+body.body-pub.pub-list-view .pub-bibliography-list.moments-timeline.patents-timeline {
+    --about-accent: #2c3e63;
+}
+
+body.body-pub.pub-list-view .pub-bibliography-list.patents-timeline > .moments-timeline-item {
+    display: grid;
+    grid-template-columns: 4.75rem 30px minmax(0, 1fr);
+    column-gap: 10px 18px;
+    row-gap: 0;
+    align-items: stretch;
+    position: relative;
+    padding-bottom: 26px;
+}
+
+body.body-pub.pub-list-view .pub-bibliography-list.patents-timeline > .moments-timeline-item:last-child {
+    padding-bottom: 0;
+}
+
+body.body-pub.pub-list-view .pub-bibliography-list.patents-timeline > .moments-timeline-item > time.patent-timeline-date {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: end;
+    align-self: start;
+    margin-bottom: 0;
+    width: fit-content;
+    max-width: 100%;
+    display: inline-block;
+    padding: 5px 12px;
+    font-variant-numeric: tabular-nums;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    color: var(--about-accent);
+    background: linear-gradient(180deg, #f5f7fb 0%, #eef1f7 100%);
+    border: 1px solid #e4e8ef;
+    border-radius: 8px;
+}
+
+body.body-pub.pub-list-view .pub-bibliography-list.patents-timeline > .moments-timeline-item > .moments-timeline-axis {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 5px;
+    align-self: stretch;
+    min-height: 100%;
+}
+
+body.body-pub.pub-list-view .pub-bibliography-list.patents-timeline .moments-timeline-dot {
+    flex-shrink: 0;
+    width: 11px;
+    height: 11px;
+    margin-top: 3px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, var(--about-accent) 0%, #4a5d87 100%);
+    border: 2px solid #fff;
+    box-shadow:
+        0 0 0 1px rgba(44, 62, 99, 0.35),
+        0 2px 6px rgba(15, 25, 50, 0.12);
+    z-index: 1;
+}
+
+body.body-pub.pub-list-view .pub-bibliography-list.patents-timeline .moments-timeline-item:not(:last-child) .moments-timeline-axis::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 19px;
+    bottom: -26px;
+    transform: translateX(-50%);
+    width: 2px;
+    border-radius: 1px;
+    background: rgba(44, 62, 99, 0.38);
+}
+
+body.body-pub.pub-list-view .pub-bibliography-list.patents-timeline > .moments-timeline-item > .moments-timeline-body {
+    grid-column: 3;
+    grid-row: 1 / -1;
+    min-width: 0;
+    padding: 2px 14px 14px 4px;
+    margin: -4px -14px -8px -4px;
+    border-radius: 12px;
+    transition: background 0.18s ease;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 0.55rem;
+    align-items: start;
+}
+
+body.body-pub.pub-list-view .pub-bibliography-list.patents-timeline > .moments-timeline-item:hover .moments-timeline-body {
+    background: linear-gradient(
+        90deg,
+        rgba(238, 241, 247, 0.65) 0%,
+        rgba(255, 255, 255, 0.35) 100%
+    );
+}
+
+body.body-pub.pub-list-view .pub-bibliography-list.patents-timeline .moments-timeline-item.timeline-same-year .moments-timeline-dot {
+    visibility: hidden;
+}
+
+body.body-pub.pub-list-view .pub-bibliography-list.patents-timeline .moments-timeline-item.timeline-same-year:not(:last-child) .moments-timeline-axis::after {
+    top: 0;
+}
+
+body.body-pub.pub-list-view .pub-bibliography-list.patents-timeline .moments-timeline-item.timeline-same-year .timeline-year-dup {
+    display: none !important;
+}
+
+body.body-pub.pub-list-view .pub-bibliography-list.patents-timeline .moments-timeline-item:last-child .moments-timeline-axis::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    border-radius: 1px;
+    top: 19px;
+    bottom: 0;
+    background: rgba(44, 62, 99, 0.38);
+}
+
+body.body-pub.pub-list-view .pub-bibliography-list.patents-timeline .moments-timeline-item:last-child.timeline-same-year .moments-timeline-axis::after {
+    top: 0;
+}
+
+body.body-pub.pub-list-view .pub-bibliography-list.patents-timeline .patent-title-row.pub-biblio-patent-row {
+    display: contents;
+}
+
+body.body-pub.pub-list-view .pub-bibliography-list.patents-timeline .patent-entry-ordinal {
+    grid-column: 1;
+    justify-self: end;
+    align-self: start;
+    min-width: 2rem;
+    margin-top: 0.06em;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    font-size: 13.5px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--secondary);
+    user-select: none;
+    pointer-events: none;
+}
+
+body.body-pub.pub-list-view .pub-bibliography-list.patents-timeline .pub-biblio-main {
+    grid-column: 2;
+    min-width: 0;
+}
+
+.dark body.body-pub.pub-list-view .pub-bibliography-list.patents-timeline > .moments-timeline-item > time.patent-timeline-date {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.12);
+    color: #b8c5e0;
+}
+
+.dark body.body-pub.pub-list-view .pub-bibliography-list.patents-timeline .moments-timeline-dot {
+    border-color: #fff;
+    box-shadow:
+        0 0 0 1px rgba(44, 62, 99, 0.35),
+        0 2px 6px rgba(15, 25, 50, 0.12);
+}
+
+.dark body.body-pub.pub-list-view .pub-bibliography-list.patents-timeline .moments-timeline-item:not(:last-child) .moments-timeline-axis::after,
+.dark body.body-pub.pub-list-view .pub-bibliography-list.patents-timeline .moments-timeline-item:last-child .moments-timeline-axis::after {
+    background: rgba(156, 172, 212, 0.55);
+}
+
+.dark body.body-pub.pub-list-view .pub-bibliography-list.patents-timeline .patent-entry-ordinal {
+    color: rgba(255, 255, 255, 0.45);
+}
+
+@media (max-width: 720px) {
+    body.body-pub.pub-list-view .pub-bibliography-list.patents-timeline > .moments-timeline-item {
+        grid-template-columns: 4rem 26px minmax(0, 1fr);
+        column-gap: 8px 12px;
+        padding-bottom: 22px;
+    }
+
+    body.body-pub.pub-list-view .pub-bibliography-list.patents-timeline .moments-timeline-item:not(:last-child) .moments-timeline-axis::after {
+        bottom: -22px;
+    }
+
+    body.body-pub.pub-list-view .pub-bibliography-list.patents-timeline > .moments-timeline-item > .moments-timeline-body {
+        padding-left: 2px;
+        margin-left: -6px;
+        margin-right: -10px;
+    }
+}
+
+.pub-biblio-item {
+    position: relative;
+    margin: 0 0 18px;
+    padding-left: 0;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--primary);
+}
+
+body.body-pub.pub-list-view .pub-bibliography-list.patents-timeline > .pub-biblio-item.moments-timeline-item {
+    margin-bottom: 0;
+}
+
+.pub-biblio-main {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Inline GitHub sits above full-row link to publication */
+.pub-biblio-item .pub-biblio-line a.pub-github-bubble {
+    position: relative;
+    z-index: 2;
+}
+
+.pub-biblio-item:last-child {
+    margin-bottom: 0;
+}
+
+.pub-biblio-self {
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+    text-decoration-thickness: 1px;
+    color: var(--primary);
+}
+
+.pub-biblio-title {
+    color: var(--darkcolor, #6a7ba2);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.pub-biblio-item:hover .pub-biblio-title,
+.pub-biblio-item:focus-within .pub-biblio-title {
+    text-decoration: underline;
+}
+
+.dark .pub-biblio-title {
+    color: var(--lightcolor, #cbd1de);
+}
+
+body.pub-list-view .pub-mode-cards {
+    display: none !important;
+}
+
+body.pub-list-view .pub-bibliography-list {
+    display: block !important;
+}
+
+body.pub-list-view .pub-layout {
+    grid-template-columns: 1fr;
+}
+
+/* Publications page layout: entries on left, timeline on right */
+.pub-layout {
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: calc(var(--gap) * 2);
+    align-items: start;
+    max-width: var(--pub-layout-max);
+    margin-inline: auto;
+    overflow: visible;
+}
+
+.pub-entries {
+    min-width: 0;
+}
+
+/* Publications (+ tag) card column: slight inset so cards read narrower than the grid track */
+.pub-layout .pub-entries {
+    padding-inline: 10px;
+}
+
+.pub-layout .pub-entries > .post-entry {
+    padding: 20px;
+}
+
+.pub-layout .pub-entries > .post-entry:not(.tag-entry) .entry-cover {
+    width: 148px;
+}
+
+/* Timeline sidebar */
+.pub-timeline {
+    position: sticky;
+    top: calc(var(--header-height) + var(--gap));
+    padding: var(--gap) 0;
+    overflow: visible;
+}
+
+.pub-timeline .timeline-list,
+.pub-timeline .timeline-year-pubs {
+    overflow: visible;
+}
+
+.timeline-heading {
+    font-size: 15px;
+    font-weight: var(--semibold);
+    color: var(--primary);
+    margin: 0 0 16px 0;
+    padding-left: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.timeline-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.timeline-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 7px 0 0 16px;
+}
+
+.timeline-item::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 7px;
+    bottom: 0;
+    width: 2px;
+    background: var(--border);
+}
+
+.timeline-dot {
+    position: absolute;
+    left: 0;
+    top: 7px;
+    transform: translateX(-50%);
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--theme);
+    border: 2.5px solid var(--primary);
+    box-shadow: 0 0 0 3px var(--bg);
+    z-index: 2;
+}
+
+.timeline-info {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.timeline-year {
+    font-size: 13px;
+    font-weight: var(--semibold);
+    color: var(--primary);
+    line-height: 14px;
+    height: 14px;
+}
+
+.timeline-year-pubs {
+    list-style: none;
+    margin: 4px 0 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.timeline-pub-item {
+    min-width: 0;
+    position: relative;
+}
+
+/* Full title on hover (card view sidebar; pops left so it is not clipped) */
+.timeline-title-tooltip {
+    position: absolute;
+    z-index: 120;
+    left: auto;
+    right: calc(100% + 10px);
+    top: 50%;
+    transform: translateY(-50%);
+    width: max-content;
+    max-width: min(380px, calc(100vw - 40px));
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: var(--semibold);
+    line-height: 1.45;
+    color: var(--primary);
+    background: var(--entry);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow:
+        0 4px 6px rgba(0, 0, 0, 0.06),
+        0 16px 32px rgba(0, 0, 0, 0.12);
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+        opacity 0.15s ease,
+        visibility 0.15s ease;
+    white-space: normal;
+    text-align: left;
+    hyphens: auto;
+}
+
+.timeline-pub-item:hover .timeline-title-tooltip,
+.timeline-pub-item:focus-within .timeline-title-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+.dark .timeline-title-tooltip {
+    box-shadow:
+        0 4px 6px rgba(0, 0, 0, 0.2),
+        0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+.timeline-title {
+    font-size: 12px;
+    color: var(--secondary);
+    line-height: 1.4;
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.timeline-title::before {
+    content: "·";
+    flex-shrink: 0;
+    font-size: 14px;
+    color: var(--primary);
+    line-height: 1;
+}
+
+.timeline-title:hover {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+.timeline-text { display: none; }
+.timeline-sep { display: none; }
+
+/* Responsive: stack layout on smaller screens */
+@media (max-width: 900px) {
+    .pub-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .pub-timeline {
+        position: static;
+        padding-top: 0;
+        border-top: 1px solid var(--border);
+        margin-top: var(--gap);
+    }
+
+    .timeline-item {
+        flex-direction: column;
+        padding: 0 0 0 16px;
+    }
+
+    .timeline-item::before {
+        display: none;
+    }
+
+    .timeline-dot {
+        position: static;
+        transform: none;
+    }
+
+    .timeline-info {
+        min-width: 0;
+    }
+
+    .timeline-year {
+        padding: 2px 8px;
+        background: var(--entry);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        font-size: 11px;
+        display: inline-block;
+        width: fit-content;
+    }
+
+    .timeline-year-pubs {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 4px 12px;
+        margin-top: 4px;
+    }
+
+    .timeline-pub-item {
+        flex: 0 0 auto;
+    }
+
+    .timeline-title {
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+    }
+
+    .timeline-title-tooltip {
+        display: none;
+    }
+}
+
+/* Full-size cover preview (publications card view) */
+.pub-cover-lightbox {
+    padding: 0;
+    border: none;
+    background: transparent;
+    max-width: 100vw;
+    max-height: 100vh;
+    margin: auto;
+}
+
+.pub-cover-lightbox::backdrop {
+    background: rgba(15, 18, 28, 0.78);
+    backdrop-filter: blur(2px);
+}
+
+.dark .pub-cover-lightbox::backdrop {
+    background: rgba(0, 0, 0, 0.82);
+}
+
+.pub-cover-lightbox-inner {
+    position: relative;
+    padding: 36px 12px 16px;
+    box-sizing: border-box;
+}
+
+.pub-cover-lightbox-img {
+    display: block;
+    margin: 0 auto;
+    max-width: min(92vw, 1100px);
+    max-height: min(86vh, 900px);
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: var(--radius);
+    box-shadow:
+        0 24px 48px rgba(0, 0, 0, 0.35),
+        0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.pub-cover-lightbox-close {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: none;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.94);
+    color: var(--primary, #1e1e1e);
+    font-size: 26px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+    transition: background 0.15s ease, transform 0.12s ease;
+}
+
+.pub-cover-lightbox-close:hover {
+    background: #ffffff;
+    transform: scale(1.05);
+}
+
+.pub-cover-lightbox-close:focus-visible {
+    outline: 3px solid var(--darkcolor, #6a7ba2);
+    outline-offset: 2px;
+}
+
+.dark .pub-cover-lightbox-close {
+    background: rgba(46, 46, 51, 0.95);
+    color: var(--primary, #dadada);
+}
+
+.dark .pub-cover-lightbox-close:hover {
+    background: rgb(56, 56, 62);
+}
+
+html.pub-cover-lightbox-open {
+    overflow: hidden;
+}

@@ -1,0 +1,330 @@
+<canvas class="hero-bg-canvas" aria-hidden="true"></canvas>
+
+<div class="hero">
+    <div class="profile">
+        {{- with site.Params.profileMode }}
+        <div class="profile_inner">
+            <h1 class="hero-title">{{ .title | default site.Title | markdownify }}</h1>
+            {{- partial "social_icons.html" -}}
+
+            {{- with .buttons }}
+            <div class="buttons">
+                {{- range . }}
+                <a class="button" href="{{ trim .url " " }}" rel="noopener" title="{{ .name }}">
+                    <span class="button-inner">
+                        {{ .name }}
+                        {{- if (findRE "://" .url) }}&nbsp;
+                        <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="14" width="14">
+                            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                            <path d="M15 3h6v6"></path>
+                            <path d="M10 14L21 3"></path>
+                        </svg>
+                        {{- end }}
+                    </span>
+                </a>
+                {{- end }}
+            </div>
+            {{- end }}
+        </div>
+        {{- end}}
+    </div>
+</div>
+
+<script>
+/*
+ * Equipotential field — a full-screen WebGL fragment shader renders a
+ * slowly evolving scalar field f(x, y, t) and extracts iso-contours from
+ * it, producing the look of a topographic map / magnetic potential lines
+ * / weather isobars. Every pixel participates in the animation.
+ *
+ * Field structure:
+ *   - long-wavelength sinusoids (smooth large-scale undulations)
+ *   - three orbiting Gaussian wells (positive and negative attractors)
+ *   - mouse pointer adds a Gaussian bump that warps nearby contours
+ *   - click events emit propagating wave packets that travel across
+ *     the whole screen, deforming contours as they pass
+ *
+ * Visualization:
+ *   - 2 layers of iso-contours: minor (every Δf) and major (every 5·Δf)
+ *   - subtle elevation tint on the background (cool→warm by field value)
+ *   - extremum highlights (faint glow at strong peaks/troughs)
+ *
+ * Light theme, no external dependencies.
+ */
+(function () {
+    var canvas = document.querySelector('.hero-bg-canvas');
+    if (!canvas) return;
+
+    var reduced = window.matchMedia &&
+                  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    var gl = canvas.getContext('webgl', {
+        alpha: false, antialias: true, premultipliedAlpha: false,
+        powerPreference: 'high-performance',
+    });
+    if (!gl) {
+        // graceful fallback: leave the CSS gradient background in place
+        return;
+    }
+
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    function resize() {
+        var w = window.innerWidth;
+        var h = window.innerHeight;
+        canvas.width  = Math.floor(w * dpr);
+        canvas.height = Math.floor(h * dpr);
+        gl.viewport(0, 0, canvas.width, canvas.height);
+    }
+
+    /* ===== Shaders ===== */
+    var VS_SRC = '\
+        attribute vec2 aPos;\n\
+        void main() { gl_Position = vec4(aPos, 0.0, 1.0); }\n\
+    ';
+
+    var FS_SRC = '\
+        precision highp float;\n\
+\n\
+        uniform vec2  uResolution;\n\
+        uniform float uTime;\n\
+        uniform vec2  uMouse;\n\
+        uniform float uMouseOn;\n\
+        uniform vec3  uShocks[4];   /* xy=position(NDC), z=age(s)        */\n\
+\n\
+        /* Scalar field: long-wave sines + 3 orbiting Gaussian wells.   */\n\
+        float field(vec2 p, float t) {\n\
+            float f = 0.0;\n\
+            f += 0.42 * sin(p.x * 1.40 + t * 0.55);\n\
+            f += 0.42 * cos(p.y * 1.40 + t * 0.65);\n\
+            f += 0.30 * sin((p.x + p.y) * 1.70 + t * 0.40);\n\
+            f += 0.26 * cos((p.x - p.y * 1.30) * 1.85 - t * 0.45);\n\
+\n\
+            vec2 c1 = vec2(0.55 * cos(t * 0.20),         0.35 * sin(t * 0.27));\n\
+            vec2 c2 = vec2(0.60 * sin(t * 0.18 + 1.7),   0.45 * cos(t * 0.30));\n\
+            vec2 c3 = vec2(0.50 * cos(t * 0.25 + 3.1),   0.50 * sin(t * 0.21 - 0.8));\n\
+            vec2 d1 = p - c1; f +=  0.70 * exp(-dot(d1, d1) * 4.0);\n\
+            vec2 d2 = p - c2; f += -0.60 * exp(-dot(d2, d2) * 5.0);\n\
+            vec2 d3 = p - c3; f +=  0.55 * exp(-dot(d3, d3) * 6.0);\n\
+\n\
+            /* Mouse perturbation */\n\
+            if (uMouseOn > 0.5) {\n\
+                vec2 mp = (uMouse / uResolution - 0.5);\n\
+                mp.x *= uResolution.x / uResolution.y;\n\
+                vec2 dm = p - mp;\n\
+                f += 0.85 * exp(-dot(dm, dm) * 12.0);\n\
+            }\n\
+\n\
+            /* Shock-wave packets */\n\
+            for (int i = 0; i < 4; i++) {\n\
+                float age = uShocks[i].z;\n\
+                if (age > 0.0001 && age < 2.2) {\n\
+                    vec2 sp = uShocks[i].xy;\n\
+                    float sd = length(p - sp);\n\
+                    float r  = age * 1.4;\n\
+                    /* gaussian-bounded ring with internal oscillation */\n\
+                    float band  = exp(-pow((sd - r) * 3.0, 2.0));\n\
+                    float decay = 1.0 - age * 0.45;\n\
+                    f += 0.60 * band * decay * sin((sd - r) * 26.0);\n\
+                }\n\
+            }\n\
+            return f;\n\
+        }\n\
+\n\
+        /* Anti-aliased iso-line: returns 1.0 on contour, 0.0 elsewhere. */\n\
+        float isoLine(float scaled, float halfWidth) {\n\
+            float d = abs(fract(scaled) - 0.5);\n\
+            return 1.0 - smoothstep(0.5 - halfWidth, 0.5, d);\n\
+        }\n\
+\n\
+        void main() {\n\
+            vec2 p = (gl_FragCoord.xy / uResolution - 0.5);\n\
+            p.x *= uResolution.x / uResolution.y;\n\
+\n\
+            float t = uTime * 0.0001;\n\
+            float f = field(p, t);\n\
+\n\
+            /* Two layers of iso-contours: minor (dense) and major.     */\n\
+            float minor = isoLine(f * 6.0, 0.040);\n\
+            float major = isoLine(f * 1.2, 0.075);\n\
+\n\
+            /* Background: cool→warm tint by field value.               */\n\
+            vec3 bgCool = vec3(0.965, 0.975, 0.992);\n\
+            vec3 bgWarm = vec3(0.992, 0.978, 0.965);\n\
+            vec3 bg = mix(bgCool, bgWarm, smoothstep(-1.5, 1.5, f));\n\
+\n\
+            /* Vertical gradient for atmospheric depth.                  */\n\
+            float vy = gl_FragCoord.y / uResolution.y;\n\
+            bg = mix(bg, bg * 0.985, smoothstep(0.0, 1.0, 1.0 - vy));\n\
+\n\
+            /* Line palette: deep slate, with a subtle warm-shift in     \n\
+               positive-field regions for visual depth.                  */\n\
+            vec3 lineCold = vec3(0.18, 0.25, 0.40);\n\
+            vec3 lineWarm = vec3(0.40, 0.28, 0.30);\n\
+            vec3 lineCol  = mix(lineCold, lineWarm,\n\
+                                smoothstep(0.0, 1.0, f * 0.4 + 0.5));\n\
+\n\
+            /* Compose: minor lines faint, major lines bolder.           */\n\
+            vec3 col = bg;\n\
+            col = mix(col, lineCol, minor * 0.30);\n\
+            col = mix(col, lineCol, major * 0.55);\n\
+\n\
+            /* Faint extremum glow — soft highlight at peaks/troughs.    */\n\
+            float ex = smoothstep(0.65, 1.05, abs(f));\n\
+            col -= 0.04 * ex;\n\
+\n\
+            /* Soft vignette: brighten center slightly so the text area  \n\
+               always sits on a clean canvas.                            */\n\
+            float r = length(p);\n\
+            col += 0.012 * (1.0 - smoothstep(0.0, 0.9, r));\n\
+\n\
+            gl_FragColor = vec4(col, 1.0);\n\
+        }\n\
+    ';
+
+    function compile(type, src) {
+        var s = gl.createShader(type);
+        gl.shaderSource(s, src);
+        gl.compileShader(s);
+        if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+            console.error('Shader compile error:', gl.getShaderInfoLog(s));
+            gl.deleteShader(s);
+            return null;
+        }
+        return s;
+    }
+
+    var vs = compile(gl.VERTEX_SHADER,   VS_SRC);
+    var fs = compile(gl.FRAGMENT_SHADER, FS_SRC);
+    if (!vs || !fs) return;
+
+    var prog = gl.createProgram();
+    gl.attachShader(prog, vs);
+    gl.attachShader(prog, fs);
+    gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+        console.error('Program link error:', gl.getProgramInfoLog(prog));
+        return;
+    }
+    gl.useProgram(prog);
+
+    /* Full-screen quad */
+    var buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER,
+        new Float32Array([-1, -1,  1, -1, -1,  1,  1,  1]),
+        gl.STATIC_DRAW);
+    var aPos = gl.getAttribLocation(prog, 'aPos');
+    gl.enableVertexAttribArray(aPos);
+    gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+    /* Uniforms */
+    var uResolution = gl.getUniformLocation(prog, 'uResolution');
+    var uTime       = gl.getUniformLocation(prog, 'uTime');
+    var uMouse      = gl.getUniformLocation(prog, 'uMouse');
+    var uMouseOn    = gl.getUniformLocation(prog, 'uMouseOn');
+    var uShocks     = gl.getUniformLocation(prog, 'uShocks');
+
+    /* State */
+    var mouse = { x: 0, y: 0, on: 0 };
+    /* Each shock: [x, y, age]. age <= 0 means inactive.                */
+    var shocks = [
+        { x: 0, y: 0, age: -1 },
+        { x: 0, y: 0, age: -1 },
+        { x: 0, y: 0, age: -1 },
+        { x: 0, y: 0, age: -1 },
+    ];
+    var shockBuf = new Float32Array(12);
+
+    /* Convert client (CSS-pixel) coords to NDC-like (-aspect..+aspect, -0.5..+0.5)
+       used inside the shader's `p` space.                              */
+    function clientToFieldP(cx, cy) {
+        var w = window.innerWidth, h = window.innerHeight;
+        var px = (cx / w - 0.5);
+        var py = ((h - cy) / h - 0.5);
+        px *= w / h;
+        return { x: px, y: py };
+    }
+
+    /* Animation */
+    var startT = performance.now();
+    var lastT  = 0;
+    function frame(now) {
+        if (!lastT) lastT = now;
+        var dt = Math.min(0.05, (now - lastT) / 1000);
+        lastT = now;
+
+        /* Update shocks */
+        for (var i = 0; i < shocks.length; i++) {
+            var s = shocks[i];
+            if (s.age >= 0) {
+                s.age += dt;
+                if (s.age > 2.2) s.age = -1;
+            }
+            shockBuf[i * 3 + 0] = s.x;
+            shockBuf[i * 3 + 1] = s.y;
+            shockBuf[i * 3 + 2] = s.age >= 0 ? s.age : 0;
+        }
+
+        /* WebGL uses physical pixels but we want shader to work with
+           CSS-pixel space (matches mouse coords). Pass CSS pixels.     */
+        gl.uniform2f(uResolution, window.innerWidth, window.innerHeight);
+        gl.uniform1f(uTime, now - startT);
+        gl.uniform2f(uMouse, mouse.x, mouse.y);
+        gl.uniform1f(uMouseOn, mouse.on);
+        gl.uniform3fv(uShocks, shockBuf);
+
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+
+        if (!reduced) requestAnimationFrame(frame);
+    }
+
+    /* Pointer events */
+    function onMove(e) {
+        var t = (e.touches && e.touches[0]) ? e.touches[0] : e;
+        mouse.x = t.clientX;
+        /* Note: shader uses gl_FragCoord which has y-up.               */
+        mouse.y = window.innerHeight - t.clientY;
+        mouse.on = 1;
+    }
+    function onLeave() {
+        mouse.on = 0;
+    }
+    function onClick(e) {
+        var t = (e.touches && e.touches[0]) ? e.touches[0] : e;
+        var fp = clientToFieldP(t.clientX, t.clientY);
+        /* find oldest / inactive slot */
+        var slot = 0, oldest = -1;
+        for (var i = 0; i < shocks.length; i++) {
+            if (shocks[i].age < 0) { slot = i; break; }
+            if (shocks[i].age > oldest) { oldest = shocks[i].age; slot = i; }
+        }
+        shocks[slot].x = fp.x;
+        shocks[slot].y = fp.y;
+        shocks[slot].age = 0.001;
+    }
+
+    var resizeTimer;
+    window.addEventListener('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(resize, 120);
+    });
+    window.addEventListener('mousemove', onMove,  { passive: true });
+    window.addEventListener('touchmove', onMove,  { passive: true });
+    window.addEventListener('mouseleave', onLeave);
+    window.addEventListener('touchend',  onLeave);
+    window.addEventListener('click',     onClick);
+
+    resize();
+    if (reduced) {
+        /* render a single static frame */
+        var t = performance.now();
+        startT = t;
+        lastT = t;
+        frame(t);
+    } else {
+        requestAnimationFrame(frame);
+    }
+})();
+</script>

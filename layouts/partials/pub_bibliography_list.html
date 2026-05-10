@@ -1,0 +1,180 @@
+{{- /* Expects dict: Pages (slice), SortedAll (full slice date-desc), Total (int). */ -}}
+{{- $pages := .Pages }}
+{{- $sortedAll := .SortedAll }}
+{{- $total := .Total }}
+{{- range $i, $pg := $pages }}
+  {{- $permalink := $pg.Permalink }}
+  {{- $ordinal := 0 }}
+  {{- range $idx, $p := $sortedAll }}
+    {{- if eq $p.RelPermalink $pg.RelPermalink }}
+      {{- $ordinal = sub $total $idx }}
+    {{- end }}
+  {{- end }}
+  {{- $year := "n.d." }}
+  {{- $yearDt := "" }}
+  {{- if not $pg.Date.IsZero }}
+    {{- $year = $pg.Date.Format "2006" }}
+    {{- $yearDt = $year }}
+  {{- end }}
+  {{- $sameYear := false }}
+  {{- if gt $i 0 }}
+    {{- $prevPg := index $pages (sub $i 1) }}
+    {{- $prevY := "n.d." }}
+    {{- if not $prevPg.Date.IsZero }}{{ $prevY = $prevPg.Date.Format "2006" }}{{ end }}
+    {{- if eq $year $prevY }}{{ $sameYear = true }}{{ end }}
+  {{- end }}
+<li class="moments-timeline-item pub-biblio-item{{ if $sameYear }} timeline-same-year{{ end }}">
+  <time class="patent-timeline-date{{ if $sameYear }} timeline-year-dup{{ end }}"{{ if $yearDt }} datetime="{{ $yearDt }}"{{ end }}{{ if $sameYear }} aria-hidden="true"{{ end }}>{{ $year }}</time>
+  <div class="moments-timeline-axis" aria-hidden="true"><span class="moments-timeline-dot"></span></div>
+  <div class="moments-timeline-body">
+    <div class="patent-title-row pub-biblio-patent-row">
+      <span class="patent-entry-ordinal" aria-hidden="true">{{ $ordinal }}.</span>
+      <div class="pub-biblio-main">
+  {{- $abstract := "" }}
+  {{- $rendered := $pg.Content }}
+  {{- $abstractMatch := findRE "(?s)<h5[^>]*>[Aa]bstract</h5>\\s*<p>(.*?)</p>" $rendered 1 }}
+  {{- if $abstractMatch }}
+    {{- $first := index $abstractMatch 0 }}
+    {{- $abstract = $first | replaceRE "(?s)<h5[^>]*>[Aa]bstract</h5>\\s*<p>(.*?)</p>" "$1" }}
+  {{- end }}
+  {{- if not $abstract }}
+    {{- $abstract = $pg.Description | default $pg.Summary | plainify | htmlUnescape }}
+  {{- end }}
+  {{- $kwTerms := $pg.GetTerms ($pg.Language.Params.Taxonomies.tag | default "tags") }}
+  {{- $pubGh := partial "pub_resolve_github_url.html" $pg | strings.TrimSpace }}
+  {{- $apaTitle := partial "pub_apa_sentence_case_title.html" $pg.Title | strings.TrimSpace }}
+  {{- if not $apaTitle }}{{ $apaTitle = $pg.Title }}{{ end }}
+
+  <span class="pub-biblio-line">
+    {{- if $pg.Params.pubListPrefix }}
+      {{- /* Manual prefix (legacy): biblio-style * / # markers */}}
+      {{- $pfxBase := $pg.Params.pubListPrefix }}
+      {{- $scratch := newScratch }}
+      {{- $scratch.Set "pfx" $pfxBase }}
+      {{- $corr := $pg.Params.correspondingAuthor | default slice }}
+      {{- $sup := $pg.Params.supervisedStudents | default slice }}
+      {{- $pubSupMark := `<sup class="pub-author-mark-sup" aria-hidden="true">#</sup>` }}
+      {{- range seq 80 1 }}
+        {{- $L := . }}
+        {{- range $corr }}
+          {{- $bib := strings.TrimSpace (partial "pub_display_name_to_biblio.html" (dict "displayName" (printf "%v" .))) }}
+          {{- if and $bib (eq (len $bib) $L) }}
+            {{- $cur := $scratch.Get "pfx" }}
+            {{- $scratch.Set "pfx" (replace $cur $bib (printf "%s%s" $bib "*")) }}
+          {{- end }}
+        {{- end }}
+        {{- range $sup }}
+          {{- if not (in $corr .) }}
+            {{- $bib := strings.TrimSpace (partial "pub_display_name_to_biblio.html" (dict "displayName" (printf "%v" .))) }}
+            {{- if and $bib (eq (len $bib) $L) }}
+              {{- $cur := $scratch.Get "pfx" }}
+              {{- $scratch.Set "pfx" (replace $cur $bib (printf "%s%s" $bib $pubSupMark)) }}
+            {{- end }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+      {{- $pfx := $scratch.Get "pfx" }}
+      {{- $selfBib := strings.TrimSpace (partial "pub_display_name_to_biblio.html" (dict "displayName" (site.Params.author | default "Sunkanghong Wang"))) }}
+      {{- if $selfBib }}
+        {{- $pfx = replace $pfx (printf "%s%s" $selfBib $pubSupMark) (printf `<strong class="pub-biblio-self">%s</strong>%s` $selfBib $pubSupMark) }}
+        {{- $pfx = replace $pfx (printf "%s*" $selfBib) (printf `<strong class="pub-biblio-self">%s</strong>*` $selfBib) }}
+        {{- $pfx = replace $pfx $selfBib (printf `<strong class="pub-biblio-self">%s</strong>` $selfBib) }}
+      {{- end }}
+      {{- safeHTML $pfx }}
+      <span class="pub-biblio-title">{{ $pg.Title }}</span>.
+      {{- $venue := partial "pub_journal_volume_pages.html" $pg | strings.TrimSpace }}
+      {{- $lj := $pg.Params.pubListJournal | default $pg.Params.journal }}
+      {{- if $lj }}
+        <em class="pub-biblio-journal">{{ $lj }}</em>{{ if $venue }}, {{ $venue }}{{ end }}.
+      {{- else if $pg.Params.pubListSuffix }}
+        {{ $pg.Params.pubListSuffix }}
+      {{- end }}
+      {{- if gt (len $pubGh) 0 }} <a href="{{ $pubGh }}" class="pub-github-bubble pub-github-bubble--biblio" target="_blank" rel="noopener noreferrer">GitHub</a>{{ end }}
+    {{- else }}
+      {{- $apaAuthLine := partial "pub_apa_reference_author_line.html" $pg | strings.TrimSpace }}
+      {{- if $apaAuthLine }}
+        {{- /* APA 7 reference-style line */}}
+        {{- $pubSupMark := `<sup class="pub-author-mark-sup" aria-hidden="true">#</sup>` }}
+        {{- $authMarked := $apaAuthLine }}
+        {{- $corr := $pg.Params.correspondingAuthor | default slice }}
+        {{- $sup := $pg.Params.supervisedStudents | default slice }}
+        {{- range $corr }}
+          {{- $tok := strings.TrimSpace (partial "pub_display_name_to_apa_reference.html" (dict "displayName" (printf "%v" .))) }}
+          {{- if $tok }}{{ $authMarked = replace $authMarked $tok (printf "%s*" $tok) }}{{ end }}
+        {{- end }}
+        {{- range $sup }}
+          {{- if not (in $corr .) }}
+            {{- $tok := strings.TrimSpace (partial "pub_display_name_to_apa_reference.html" (dict "displayName" (printf "%v" .))) }}
+            {{- if $tok }}{{ $authMarked = replace $authMarked $tok (printf "%s%s" $tok $pubSupMark) }}{{ end }}
+          {{- end }}
+        {{- end }}
+        {{- $authHtml := $authMarked }}
+        {{- $selfApa := strings.TrimSpace (partial "pub_display_name_to_apa_reference.html" (dict "displayName" (site.Params.author | default "Sunkanghong Wang"))) }}
+        {{- if $selfApa }}
+          {{- $authHtml = replace $authHtml (printf "%s%s" $selfApa $pubSupMark) (printf `<strong class="pub-biblio-self">%s</strong>%s` $selfApa $pubSupMark) }}
+          {{- $authHtml = replace $authHtml (printf "%s*" $selfApa) (printf `<strong class="pub-biblio-self">%s</strong>*` $selfApa) }}
+          {{- $authHtml = replace $authHtml $selfApa (printf `<strong class="pub-biblio-self">%s</strong>` $selfApa) }}
+        {{- end }}
+        {{- $apaLineYear := "n.d." }}
+        {{- if not $pg.Date.IsZero }}{{ $apaLineYear = $pg.Date.Format "2006" }}{{ end }}
+        {{- safeHTML (printf "%s (%s)." $authHtml $apaLineYear) }}
+        <span class="pub-biblio-title">{{ $apaTitle }}</span>.
+        {{- $lj := $pg.Params.pubListJournal | default $pg.Params.journal }}
+        {{- $vol := $pg.Params.volume }}
+        {{- $issue := $pg.Params.issue }}
+        {{- $pagesDisp := "" }}
+        {{- with $pg.Params.pages }}{{ $pagesDisp = partial "pub_apa_pages_en_dash.html" . | strings.TrimSpace }}{{ end }}
+        {{- if $lj }}
+          <em class="pub-biblio-journal">{{ $lj }}</em>{{ if $vol }}, <em>{{ $vol }}</em>{{ end }}{{ if $issue }}({{ $issue }}){{ end }}{{ if $pagesDisp }}, {{ $pagesDisp }}{{ end }}.
+        {{- else if $pg.Params.pubListSuffix }}
+          {{ $pg.Params.pubListSuffix }}
+        {{- end }}
+        {{- if gt (len $pubGh) 0 }} <a href="{{ $pubGh }}" class="pub-github-bubble pub-github-bubble--biblio" target="_blank" rel="noopener noreferrer">GitHub</a>{{ end }}
+      {{- else }}
+        {{- /* No author param */}}
+        <span class="pub-biblio-title">{{ $apaTitle }}</span>.
+        {{- $lj := $pg.Params.pubListJournal | default $pg.Params.journal }}
+        {{- $vol := $pg.Params.volume }}
+        {{- $issue := $pg.Params.issue }}
+        {{- $pagesDisp := "" }}
+        {{- with $pg.Params.pages }}{{ $pagesDisp = partial "pub_apa_pages_en_dash.html" . | strings.TrimSpace }}{{ end }}
+        {{- if $lj }}
+          <em class="pub-biblio-journal">{{ $lj }}</em>{{ if $vol }}, <em>{{ $vol }}</em>{{ end }}{{ if $issue }}({{ $issue }}){{ end }}{{ if $pagesDisp }}, {{ $pagesDisp }}{{ end }}.
+        {{- else if $pg.Params.pubListSuffix }}
+          {{ $pg.Params.pubListSuffix }}
+        {{- end }}
+        {{- $yr := "" }}
+        {{- if not $pg.Date.IsZero }}{{ $yr = $pg.Date.Format "2006" }}{{ end }}
+        {{- if $yr }} ({{ $yr }}){{ end }}
+        {{- if gt (len $pubGh) 0 }} <a href="{{ $pubGh }}" class="pub-github-bubble pub-github-bubble--biblio" target="_blank" rel="noopener noreferrer">GitHub</a>{{ end }}
+      {{- end }}
+    {{- end }}
+  </span>
+
+  {{- if or $abstract $kwTerms }}
+  <div class="entry-hover-info" aria-hidden="true">
+    {{- if $abstract }}
+    <div class="entry-hover-abstract">
+      <h4>Abstract</h4>
+      <p>{{ $abstract | safeHTML }}</p>
+    </div>
+    {{- end }}
+    {{- if $kwTerms }}
+    <div class="entry-hover-keywords">
+      <h4>Keywords</h4>
+      <ul class="entry-hover-tags">
+        {{- range $kwTerms }}
+        <li>{{ .LinkTitle }}</li>
+        {{- end }}
+      </ul>
+    </div>
+    {{- end }}
+  </div>
+  {{- end }}
+
+      </div>
+    </div>
+  </div>
+  <a class="entry-link pub-biblio-entry-link" aria-label="post link to {{ $pg.Title | plainify }}" href="{{ $permalink }}"></a>
+</li>
+{{- end }}

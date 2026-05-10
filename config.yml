@@ -1,0 +1,141 @@
+baseURL: "https://sunkanghong-wang.github.io"
+title: Sunkanghong Wang
+theme: PaperMod
+
+# Drop stale HTML left over from removed content or prior template experiments (e.g. old demo pages).
+cleanDestinationDir: true
+
+# Hugo hides pages whose date is after “today” unless this is true (needed for dated Moments before that calendar day).
+buildFuture: true
+
+enableInlineShortcodes: true
+enableRobotsTXT: true
+pagination:
+  pagerSize: 20
+
+taxonomies:
+    tag: tags
+
+menu:
+    main:
+        - name: About
+          url: about/
+          weight: 1
+          pre: '<span class="nav-link-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20v-2a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v2"/></svg></span>'
+        - name: Publications
+          url: publications/
+          weight: 2
+          pre: '<span class="nav-link-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>'
+        - name: Ongoing Papers
+          url: ongoing-papers/
+          weight: 3
+          pre: '<span class="nav-link-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></span>'
+        - name: Conferences
+          url: conferences/
+          weight: 4
+          pre: '<span class="nav-link-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></span>'
+        - name: Patents
+          url: patents/
+          weight: 5
+          pre: '<span class="nav-link-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/></svg></span>'
+        - name: Awards
+          url: awards/
+          weight: 6
+          pre: '<span class="nav-link-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg></span>'
+        - name: Moments
+          url: moments/
+          weight: 7
+          pre: '<span class="nav-link-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span>'
+
+params:
+    # About-page headshot: place static/<avatarBaseName>.<jpg|jpeg|png|webp|gif> (only one extension).
+    about:
+        avatarBaseName: avatar
+        avatarAlt: "Sunkanghong Wang"
+
+    # Cache-buster for /cv.pdf when static/cvs/ has no WSKH-CV-yyyy-MM-dd.pdf yet (fallback link).
+    cvPdfVersion: "20260428"
+    description: "This website hosts Sunkanghong Wang's research papers, course materials, data, curriculum vitae, and contact information."
+    author: Sunkanghong Wang
+    # googleAnalyticsID: "G-XXXXX"
+    DateFormat: "January 2006"
+    defaultTheme: light
+    hideFooter: false
+    disableThemeToggle: true
+    ShowShareButtons: false
+    ShowReadingTime: false
+    disableSpecial1stPost: true
+    disableAnchoredHeadings: true
+    ShowPostNavLinks: false
+    ShowBreadCrumbs: false
+    ShowCodeCopyButtons: true
+    ShowAllPagesInArchive: false
+    MainSections: ["publications"]
+    ShowToc: false
+    disableScrollToTop: true
+    TocOpen: true
+    ShowWordCount: false
+    UseHugoToc: true
+    comments: false
+    math: true
+    profileMode:
+          enabled: false
+          title: Sunkanghong Wang (王孙康宏)
+          subtitle: "I am currently pursuing a master's degree in Mechanical Engineering at Guangdong University of Technology (GDUT), Guangzhou, Guangdong, China, with an expected graduation in June 2026. My research focuses on Operations Research, Discrete Optimization, Algorithm Design, and Packing & Cutting Problems. I am passionate about collaborating on challenging projects that intersect discrete optimization, algorithms, and practical applications."
+          # If you enable profileMode: site-root URL for static headshot, e.g. /avatar.jpg (same basename/extension as static/).
+          imageUrl: ""
+          imageWidth: 160
+          imageHeight: 160
+          buttons:
+            - name: About
+              url: about/
+            - name: Publications
+              url: publications/
+
+    socialIcons:
+        - name: CV
+          url: cv.pdf
+        - name: Email
+          url: mailto:wskh0929@gmail.com
+        - name: Google Scholar
+          url: https://scholar.google.com/citations?hl=en&user=G3XNZl8AAAAJ
+        - name: GitHub
+          url: https://github.com/WSKH0929
+
+    assets:
+        disableScrollBarStyle: true
+    cover:
+        hiddenInList: false
+        hiddenInSingle: true
+    label:
+      text: "Sunkanghong Wang"
+      icon: favicon.ico
+      iconHeight: 18
+
+    # Header page-view counter (hitwebcounter). Hover/focus shows tooltip copy below.
+    pageViews:
+        enabled: true
+        icon: "👣"
+        counterImgSrc: "https://hitwebcounter.com/counter/counter.php?page=21439720&style=0006&nbdigits=5&type=page&initCount=134"
+        counterHref: "https://www.hitwebcounter.com/"
+        tooltip: "Approximate site-wide visits: a baseline from my earlier Google Site plus counts since this site launched."
+
+markup:
+    goldmark:
+        renderer:
+            unsafe: true
+        parser:
+            wrapStandAloneImageWithinParagraph: false
+            attribute:
+                block: true
+                title: true
+        extensions:
+            # Otherwise `"` inside `{width="70%"}` becomes curly quotes and image attributes won’t parse.
+            typographer: false
+    highlight:
+        guessSyntax: true
+        style: autumn 
+    tableOfContents:
+        endLevel: 2
+        ordered: false
+        startLevel: 2

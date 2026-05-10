@@ -1,0 +1,35 @@
+{{- $year := "" }}
+{{- $author := "" }}
+{{- $journal := "" }}
+
+{{- if not .Date.IsZero }}
+{{- $year = .Date.Format "2006" }}
+{{- end }}
+
+{{- if not (.Param "hideAuthor") }}
+{{- with (partial "author.html" .) }}
+{{- $author = . }}
+{{- end }}
+{{- end }}
+
+{{- $journal = .Params.journal }}
+
+{{- $hasYear := ne $year "" }}
+{{- $hasAuthor := ne $author "" }}
+{{- $hasJournal := and $journal (ne $journal "") }}
+{{- $pubGh := partial "pub_resolve_github_url.html" . | strings.TrimSpace }}
+
+{{- if $hasAuthor }}
+<div class="pub-meta-row1">
+  {{- if $hasAuthor }}{{ $author }}{{ end }}
+</div>
+{{- end }}
+<div class="pub-meta-row2">
+  {{- if $hasYear }}<span class="meta-year">{{ $year }}</span>{{ end }}
+  {{- if and $hasYear $hasJournal }}<span class="pub-meta-sep" aria-hidden="true">·</span>{{ end }}
+  {{- if $hasJournal }}<span class="meta-journal">{{ $journal }}</span>{{ end }}
+  {{- if gt (len $pubGh) 0 }}
+  {{- if or $hasYear $hasJournal }}<span class="pub-meta-sep" aria-hidden="true">·</span>{{ end }}
+  <a class="pub-github-bubble pub-github-bubble--card" href="{{ $pubGh }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository">GitHub</a>
+  {{- end }}
+</div>

@@ -1,0 +1,94 @@
+<script>
+(function () {
+  function injectOrdinalsInOl(ol, cfg) {
+    var items = ol.querySelectorAll(":scope > .moments-timeline-item");
+    var total = items.length;
+    items.forEach(function (li, idx) {
+      var body = li.querySelector(".moments-timeline-body");
+      if (!body || body.querySelector(cfg.skipIfPresent)) return;
+      var titleEl = body.querySelector(cfg.titleSelector);
+      if (!titleEl) return;
+      var span = document.createElement("span");
+      span.className = cfg.ordinalClass;
+      span.setAttribute("aria-hidden", "true");
+      span.textContent = total - idx + ".";
+      var row = document.createElement("div");
+      row.className = cfg.rowClass;
+      titleEl.parentNode.insertBefore(row, titleEl);
+      row.appendChild(span);
+      row.appendChild(titleEl);
+    });
+  }
+
+  function injectPatentsTimelineOrdinals(ol) {
+    injectOrdinalsInOl(ol, {
+      titleSelector: ".moments-headline",
+      skipIfPresent: ".patent-title-row",
+      ordinalClass: "patent-entry-ordinal",
+      rowClass: "patent-title-row"
+    });
+  }
+
+  function injectAwardsTimelineOrdinals(ol) {
+    injectOrdinalsInOl(ol, {
+      titleSelector: ".aw-title",
+      skipIfPresent: ".award-title-row",
+      ordinalClass: "award-entry-ordinal",
+      rowClass: "award-title-row"
+    });
+  }
+
+  function yearFromItem(li) {
+    var el = li.querySelector(".aw-year");
+    if (el) {
+      var t = el.textContent.trim();
+      if (/^\d{4}$/.test(t)) return t;
+    }
+    el = li.querySelector("time.moments-date");
+    if (el) {
+      var dt = el.getAttribute("datetime");
+      if (dt && dt.length >= 4) return dt.slice(0, 4);
+      var m = el.textContent.match(/\b(19|20)\d{2}\b/);
+      return m ? m[0] : null;
+    }
+    el = li.querySelector("time.patent-timeline-date");
+    if (el) {
+      dt = el.getAttribute("datetime");
+      if (dt && /^\d{4}/.test(dt)) return dt.slice(0, 4);
+      var mt = el.textContent.match(/\b(19|20)\d{2}\b/);
+      return mt ? mt[0] : null;
+    }
+    return null;
+  }
+
+  function timelineDedupeKey(li) {
+    var nt = li.querySelector("time.moments-date");
+    if (nt) {
+      var dt = nt.getAttribute("datetime");
+      if (dt && /^\d{4}-\d{2}-\d{2}/.test(dt)) return dt.slice(0, 10);
+    }
+    return yearFromItem(li);
+  }
+
+  document.querySelectorAll(".moments-timeline").forEach(function (ol) {
+    var prev = null;
+    ol.querySelectorAll(":scope > .moments-timeline-item").forEach(function (li) {
+      var key = timelineDedupeKey(li);
+      if (key !== null && prev !== null && key === prev) {
+        li.classList.add("timeline-same-year");
+        var badge = li.querySelector(".aw-year, time.moments-date, time.patent-timeline-date");
+        if (badge) {
+          badge.setAttribute("aria-hidden", "true");
+          badge.classList.add("timeline-year-dup");
+        }
+      }
+      prev = key;
+    });
+    if (ol.classList.contains("patents-timeline")) {
+      injectPatentsTimelineOrdinals(ol);
+    } else if (ol.closest(".awards-page")) {
+      injectAwardsTimelineOrdinals(ol);
+    }
+  });
+})();
+</script>

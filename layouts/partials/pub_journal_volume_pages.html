@@ -1,0 +1,10 @@
+{{- /* Comma-separated volume + pages for bibliography line (e.g. "327, 735-753"). */ -}}
+{{- $v := .Params.volume }}
+{{- $p := .Params.pages }}
+{{- if and $v $p }}
+  {{- printf "%v, %v" $v $p }}
+{{- else if $v }}
+  {{- printf "%v" $v }}
+{{- else if $p }}
+  {{- printf "%v" $p }}
+{{- end }}

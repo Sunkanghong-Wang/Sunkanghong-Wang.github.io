@@ -1,0 +1,18 @@
+{{- /* APA reference list author: "Wang, S." from "Sunkanghong Wang". Single-token names unchanged. */ -}}
+{{- $name := strings.TrimSpace .displayName }}
+{{- if not $name }}
+{{- else if le (len (split $name " ")) 1 }}
+  {{- $name }}
+{{- else }}
+  {{- $parts := split $name " " }}
+  {{- $fam := index $parts (sub (len $parts) 1) }}
+  {{- $givenParts := first (sub (len $parts) 1) $parts }}
+  {{- $inis := slice }}
+  {{- range $givenParts }}
+    {{- $w := strings.TrimSpace . }}
+    {{- if gt (len $w) 0 }}
+      {{- $inis = $inis | append (printf "%s." (upper (substr $w 0 1))) }}
+    {{- end }}
+  {{- end }}
+  {{- printf "%s, %s" $fam (delimit $inis " ") }}
+{{- end }}

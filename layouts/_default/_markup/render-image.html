@@ -1,0 +1,58 @@
+{{- /* ![alt](url)；可选 Hugo Markdown 属性 width（升级到新 Hugo 后可能生效）。Moments：render 出的图可点击放大 */ -}}
+{{- $dest := .Destination | safeURL -}}
+{{- $alt := .Text -}}
+{{- $title := .Title | strings.TrimSpace -}}
+{{- $caption := "" -}}
+{{- if $title -}}
+  {{- $caption = $title -}}
+{{- else -}}
+  {{- $caption = .Text | strings.TrimSpace -}}
+{{- end -}}
+{{- $isMoments := eq .Page.Section "moments" -}}
+{{- $ariaZoom := "View larger image" -}}
+{{- if and $isMoments $caption -}}
+  {{- $ariaZoom = printf "View larger image: %s" ($caption | plainify) -}}
+{{- end -}}
+
+{{- $rawW := "" -}}
+{{- with .Attributes -}}
+  {{- with index . "width" -}}
+    {{- $rawW = strings.TrimSpace (printf "%s" .) -}}
+  {{- end -}}
+{{- end -}}
+{{- $rawW = strings.TrimPrefix "'" (strings.TrimSuffix "'" $rawW) -}}
+{{- $rawW = strings.TrimPrefix `"` (strings.TrimSuffix `"` $rawW) -}}
+{{- $safeW := "" -}}
+{{- if findRE `^\d+(\.\d+)?%$` $rawW -}}
+  {{- $safeW = $rawW -}}
+{{- else if findRE `^\d+(\.\d+)?px$` $rawW -}}
+  {{- $safeW = $rawW -}}
+{{- else if findRE `^\d+(\.\d+)?rem$` $rawW -}}
+  {{- $safeW = $rawW -}}
+{{- end -}}
+{{- $figExtraClass := cond (ne $safeW "") " md-img-figure--custom-width" "" -}}
+
+{{- if $caption -}}
+<figure class="md-img-figure{{- if $isMoments }} md-img-figure--zoom{{- end }}{{ $figExtraClass }}"{{- if $safeW }} style="width:{{ $safeW }};max-width:{{ $safeW }};margin-inline:auto;"{{- end }}>
+  {{- if $isMoments -}}
+  <button type="button" class="moments-img-lightbox-trigger" aria-label="{{ $ariaZoom }}">
+    <img src="{{ $dest }}" alt="{{ $alt }}" loading="lazy" decoding="async" />
+  </button>
+  {{- else -}}
+  <img src="{{ $dest }}" alt="{{ $alt }}" loading="lazy" decoding="async" />
+  {{- end -}}
+  <figcaption class="md-img-caption">{{ $caption }}</figcaption>
+</figure>
+{{- else if $isMoments -}}
+<figure class="md-img-figure md-img-figure--zoom md-img-figure--bare{{ $figExtraClass }}"{{- if $safeW }} style="width:{{ $safeW }};max-width:{{ $safeW }};margin-inline:auto;"{{- end }}>
+  <button type="button" class="moments-img-lightbox-trigger" aria-label="{{ $ariaZoom }}">
+    <img src="{{ $dest }}" alt="{{ $alt }}" loading="lazy" decoding="async" />
+  </button>
+</figure>
+{{- else if $safeW -}}
+<figure class="md-img-figure md-img-figure--custom-width" style="width:{{ $safeW }};max-width:{{ $safeW }};margin-inline:auto;">
+  <img src="{{ $dest }}" alt="{{ $alt }}" loading="lazy" decoding="async" />
+</figure>
+{{- else -}}
+<img src="{{ $dest }}" alt="{{ $alt }}" loading="lazy" decoding="async" />
+{{- end -}}

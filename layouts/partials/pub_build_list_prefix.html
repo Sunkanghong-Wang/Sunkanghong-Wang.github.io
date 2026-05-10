@@ -1,0 +1,33 @@
+{{- /* APA-style author + year: "(YYYY)." after names, or ". YYYY." when yearAfterAuthors is true. Expects dict with key "page". */ -}}
+{{- $pg := .page -}}
+{{- if not $pg }}{{ errorf "pub_build_list_prefix: pass dict with \"page\" key (got %#v)" . }}{{ end -}}
+{{- $yearAfterAuthors := .yearAfterAuthors | default false -}}
+{{- $authors := $pg.Params.author }}
+{{- if not $authors }}
+{{- else }}
+  {{- $year := "" }}
+  {{- if not $pg.Date.IsZero }}{{ $year = $pg.Date.Format "2006" }}{{ end }}
+  {{- $bibs := slice }}
+  {{- range $authors }}
+    {{- $b := strings.TrimSpace (partial "pub_display_name_to_biblio.html" (dict "displayName" (printf "%v" .))) }}
+    {{- if $b }}
+      {{- $bibs = $bibs | append $b }}
+    {{- end }}
+  {{- end }}
+  {{- $n := len $bibs }}
+  {{- $authorPart := "" }}
+  {{- if eq $n 1 }}
+    {{- $authorPart = index $bibs 0 }}
+  {{- else if eq $n 2 }}
+    {{- $authorPart = printf "%s and %s" (index $bibs 0) (index $bibs 1) }}
+  {{- else }}
+    {{- $init := first (sub $n 1) $bibs }}
+    {{- $last := index $bibs (sub $n 1) }}
+    {{- $authorPart = printf "%s, and %s" (delimit $init ", ") $last }}
+  {{- end }}
+  {{- if $yearAfterAuthors }}
+    {{- printf "%s. %s." $authorPart $year }}
+  {{- else }}
+    {{- printf "%s (%s)." $authorPart $year }}
+  {{- end }}
+{{- end }}

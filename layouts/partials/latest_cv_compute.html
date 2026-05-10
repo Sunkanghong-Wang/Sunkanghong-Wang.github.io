@@ -1,0 +1,23 @@
+{{- /*
+  Returns full CV URL with cache-buster (?v=yyyymmdd or cvPdfVersion).
+  partialCached with `site` — one evaluation per build.
+*/ -}}
+{{- $fallbackV := site.Params.cvPdfVersion | default "1" -}}
+{{- $href := "/cv.pdf" -}}
+{{- $v := $fallbackV -}}
+{{- $names := slice -}}
+{{- range readDir "static/cvs" -}}
+    {{- if findRE `^WSKH-CV-\d{4}-\d{2}-\d{2}\.pdf$` .Name 1 -}}
+        {{- $names = $names | append .Name -}}
+    {{- end -}}
+{{- end -}}
+{{- if gt (len $names) 0 -}}
+    {{- $latest := index (collections.Reverse (sort $names)) 0 -}}
+    {{- $href = printf "/cvs/%s" $latest -}}
+    {{- with index (findRE `\d{4}-\d{2}-\d{2}` $latest 1) 0 -}}
+        {{- $v = replace . "-" "" -}}
+    {{- end -}}
+{{- end -}}
+
+{{- $fullHref := printf "%s?v=%s" ($href | relURL) $v -}}
+{{- return $fullHref -}}

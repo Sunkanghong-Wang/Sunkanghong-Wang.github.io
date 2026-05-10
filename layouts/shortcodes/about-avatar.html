@@ -1,0 +1,17 @@
+{{- $base := site.Params.about.avatarBaseName | default "avatar" -}}
+{{- $alt := site.Params.about.avatarAlt | default "Sunkanghong Wang" -}}
+{{- $exts := slice "jpg" "jpeg" "png" "webp" "gif" -}}
+{{- $src := "" -}}
+{{- range $exts -}}
+  {{- if not $src -}}
+    {{- $path := printf "static/%s.%s" $base . -}}
+    {{- if fileExists $path -}}
+      {{- $src = printf "/%s.%s" $base . -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- if $src -}}
+<img src="{{ $src | relURL }}" alt="{{ $alt }}" decoding="async" />
+{{- else -}}
+{{- warnf "About avatar missing: add static/%s.<jpg|jpeg|png|webp|gif> (params.about.avatarBaseName)" $base -}}
+{{- end -}}

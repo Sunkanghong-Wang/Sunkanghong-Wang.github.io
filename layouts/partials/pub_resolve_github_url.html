@@ -1,0 +1,10 @@
+{{- /* Trimmed GitHub URL: non-empty pubGithub wins; empty/missing falls back to legacy pubListGithub. */ -}}
+{{- $u := "" }}
+{{- with .Params.pubGithub }}
+  {{- $u = strings.TrimSpace (printf "%v" .) }}
+{{- else }}
+  {{- with .Params.pubListGithub }}
+    {{- $u = strings.TrimSpace (printf "%v" .) }}
+  {{- end }}
+{{- end }}
+{{- strings.TrimSpace $u -}}

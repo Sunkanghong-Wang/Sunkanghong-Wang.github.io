@@ -1,0 +1,69 @@
+<dialog class="moments-img-lightbox" aria-modal="true" aria-label="Image preview">
+  <div class="moments-img-lightbox-inner">
+    <button type="button" class="moments-img-lightbox-close" aria-label="Close">&times;</button>
+    <img class="moments-img-lightbox-img" src="" alt="" decoding="async" />
+  </div>
+</dialog>
+<script>
+(function () {
+  function ready(fn) {
+    if (document.readyState !== "loading") fn();
+    else document.addEventListener("DOMContentLoaded", fn);
+  }
+  ready(function () {
+    var dlg = document.querySelector("dialog.moments-img-lightbox");
+    if (!dlg || typeof dlg.showModal !== "function") return;
+    var imgEl = dlg.querySelector(".moments-img-lightbox-img");
+    var closeBtn = dlg.querySelector(".moments-img-lightbox-close");
+    if (!imgEl) return;
+
+    function onClose() {
+      imgEl.removeAttribute("src");
+      imgEl.alt = "";
+      document.documentElement.classList.remove("moments-img-lightbox-open");
+    }
+
+    function openFromImg(im) {
+      if (!im || !im.getAttribute("src")) return;
+      imgEl.src = im.currentSrc || im.src;
+      imgEl.alt = im.alt || "";
+      document.documentElement.classList.add("moments-img-lightbox-open");
+      dlg.showModal();
+    }
+
+    function openFrom(btn) {
+      var im = btn.querySelector("img");
+      openFromImg(im);
+    }
+
+    function close() {
+      if (dlg.open) dlg.close();
+    }
+
+    document.addEventListener("click", function (e) {
+      if (!document.querySelector(".moments-single-page")) return;
+      var t = e.target && e.target.closest(".moments-img-lightbox-trigger");
+      if (t) {
+        e.preventDefault();
+        e.stopPropagation();
+        openFrom(t);
+        return;
+      }
+      var im = e.target && e.target.closest(".moments-single-content img");
+      if (!im || im.closest(".moments-img-lightbox-trigger")) return;
+      if (im.classList.contains("site-pageviews-counter-img")) return;
+      e.preventDefault();
+      e.stopPropagation();
+      openFromImg(im);
+    });
+
+    if (closeBtn) closeBtn.addEventListener("click", close);
+
+    dlg.addEventListener("click", function (e) {
+      if (e.target === dlg) close();
+    });
+
+    dlg.addEventListener("close", onClose);
+  });
+})();
+</script>

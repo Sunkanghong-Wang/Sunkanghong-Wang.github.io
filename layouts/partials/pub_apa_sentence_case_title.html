@@ -1,0 +1,15 @@
+{{- /* APA article title: capitalize first character of title and of subtitle after ": "; preserve rest (acronyms etc.). */ -}}
+{{- $raw := . | plainify | strings.TrimSpace }}
+{{- if not $raw }}
+{{- else }}
+  {{- $segments := split $raw ": " }}
+  {{- $out := slice }}
+  {{- range $segments }}
+    {{- $s := strings.TrimSpace . }}
+    {{- if gt (len $s) 0 }}
+      {{- $cap := printf "%s%s" (upper (substr $s 0 1)) (substr $s 1) }}
+      {{- $out = $out | append $cap }}
+    {{- end }}
+  {{- end }}
+  {{- delimit $out ": " }}
+{{- end }}

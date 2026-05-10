@@ -1,0 +1,14 @@
+{{- $n := strings.TrimSpace .displayName }}
+{{- $out := "" }}
+{{- if not $n }}
+{{- else if le (len (split $n " ")) 1 }}
+  {{- $out = $n }}
+{{- else }}
+  {{- $parts := split $n " " }}
+  {{- $lc := len $parts }}
+  {{- $fam := index $parts (sub $lc 1) }}
+  {{- $givenParts := first (sub $lc 1) $parts }}
+  {{- $given := delimit $givenParts " " }}
+  {{- $out = printf "%s, %s" $fam $given }}
+{{- end }}
+{{- strings.TrimSpace $out }}

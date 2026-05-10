@@ -1,0 +1,56 @@
+<dialog class="pub-cover-lightbox" aria-modal="true" aria-label="Publication cover preview">
+  <div class="pub-cover-lightbox-inner">
+    <button type="button" class="pub-cover-lightbox-close" aria-label="Close">&times;</button>
+    <img class="pub-cover-lightbox-img" src="" alt="" decoding="async">
+  </div>
+</dialog>
+<script>
+(function () {
+  function ready(fn) {
+    if (document.readyState !== "loading") fn();
+    else document.addEventListener("DOMContentLoaded", fn);
+  }
+  ready(function () {
+    var dlg = document.querySelector("dialog.pub-cover-lightbox");
+    if (!dlg || typeof dlg.showModal !== "function") return;
+    var imgEl = dlg.querySelector(".pub-cover-lightbox-img");
+    var closeBtn = dlg.querySelector(".pub-cover-lightbox-close");
+    if (!imgEl) return;
+
+    function onClose() {
+      imgEl.removeAttribute("src");
+      imgEl.alt = "";
+      document.documentElement.classList.remove("pub-cover-lightbox-open");
+    }
+
+    function openFrom(btn) {
+      var im = btn.querySelector("img");
+      if (!im || !im.getAttribute("src")) return;
+      imgEl.src = im.currentSrc || im.src;
+      imgEl.alt = im.alt || "";
+      document.documentElement.classList.add("pub-cover-lightbox-open");
+      dlg.showModal();
+    }
+
+    function close() {
+      if (dlg.open) dlg.close();
+    }
+
+    document.addEventListener("click", function (e) {
+      var t = e.target && e.target.closest(".pub-cover-lightbox-trigger");
+      if (!t || !document.querySelector(".pub-layout")) return;
+      e.preventDefault();
+      e.stopPropagation();
+      openFrom(t);
+    });
+
+    if (closeBtn) closeBtn.addEventListener("click", close);
+
+    dlg.addEventListener("click", function (e) {
+      if (e.target === dlg) close();
+    });
+
+    dlg.addEventListener("close", onClose);
+  });
+})();
+</script>

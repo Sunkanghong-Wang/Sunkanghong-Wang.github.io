@@ -1,0 +1,75 @@
+{{- /* Card view: keep hover panel in view while max-height animates (~480ms rAF) + transitionend */ -}}
+<script>
+(function () {
+  document.addEventListener("DOMContentLoaded", function () {
+    var wrap = document.querySelector(".pub-entries.pub-mode-cards");
+    if (!wrap) return;
+    var pad = 32;
+    function cardView() {
+      return !document.body.classList.contains("pub-list-view");
+    }
+    function scrollIfNeeded(hover) {
+      var r = hover.getBoundingClientRect();
+      if (r.height < 2) return;
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      var lim = vh - pad;
+      if (r.bottom > lim) {
+        window.scrollBy(0, r.bottom - lim);
+      }
+    }
+    function runNudge(card) {
+      if (!cardView()) return;
+      var hover = card.querySelector(".entry-hover-info");
+      if (!hover) return;
+      var start = performance.now();
+      var rafId = 0;
+      var tEnd = 0;
+      var done = false;
+      function cleanup() {
+        if (done) return;
+        done = true;
+        cancelAnimationFrame(rafId);
+        window.clearTimeout(tEnd);
+        hover.removeEventListener("transitionend", onTransEnd);
+        card.removeEventListener("mouseleave", cleanupLeave);
+        card.removeEventListener("focusout", cleanupFocus);
+      }
+      function cleanupLeave() {
+        cleanup();
+      }
+      function cleanupFocus(ev) {
+        if (card.contains(ev.relatedTarget)) return;
+        cleanup();
+      }
+      function frame(t) {
+        if (done) return;
+        scrollIfNeeded(hover);
+        if (t - start < 480) {
+          rafId = requestAnimationFrame(frame);
+        }
+      }
+      function onTransEnd(e) {
+        if (done || e.target !== hover || e.propertyName !== "max-height") return;
+        scrollIfNeeded(hover);
+      }
+      scrollIfNeeded(hover);
+      rafId = requestAnimationFrame(frame);
+      hover.addEventListener("transitionend", onTransEnd);
+      tEnd = window.setTimeout(function () {
+        scrollIfNeeded(hover);
+        hover.removeEventListener("transitionend", onTransEnd);
+      }, 520);
+      card.addEventListener("mouseleave", cleanupLeave);
+      card.addEventListener("focusout", cleanupFocus);
+    }
+    wrap.querySelectorAll(".post-entry").forEach(function (card) {
+      card.addEventListener("mouseenter", function () {
+        runNudge(card);
+      });
+      card.addEventListener("focusin", function () {
+        runNudge(card);
+      });
+    });
+  });
+})();
+</script>

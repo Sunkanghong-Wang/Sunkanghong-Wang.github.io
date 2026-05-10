@@ -1,0 +1,73 @@
+# Hugo 生成的静态文件（部署产物，无需提交）
+# Hugo generated static files (build output, no need to commit)
+public/
+
+# Hugo 资源缓存
+# Hugo resource cache
+resources/_gen/
+assets/jsconfig.json
+
+# Hugo 构建锁
+# Hugo build lock file
+.hugo_build.lock
+
+# Hugo Modules 依赖校验文件
+# Hugo Modules dependency checksum file
+go.sum
+
+# 本地开发服务器 PID 文件
+# Local dev server PID file
+.hugo_server.pid
+
+# ======================
+# macOS
+# ======================
+
+# macOS 目录元数据文件
+# macOS directory metadata files
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# macOS 索引与回收站文件
+# macOS Spotlight index and Trash files
+.Spotlight-V100
+.Trashes
+
+# ======================
+# 编辑器 / IDE
+# Editor / IDE
+# ======================
+
+# VS Code 配置目录
+# VS Code settings directory
+.vscode/
+
+# JetBrains IDE 配置目录（GoLand、WebStorm 等）
+# JetBrains IDE settings directory (GoLand, WebStorm, etc.)
+.idea/
+
+# Vim / Neovim 交换文件与会话文件
+# Vim / Neovim swap and session files
+*.swp
+*.swo
+Session.vim
+
+# Emacs 备份与锁定文件
+# Emacs backup and lock files
+*~
+\#*\#
+
+# ======================
+# 其他 / Misc
+# ======================
+
+# 环境变量文件（可能包含敏感信息，切勿提交）
+# Environment variable files (may contain secrets, never commit)
+.env
+.env.local
+
+# Node 依赖目录（如果用 npm 管理主题或构建工具）
+# Node dependencies (if using npm for theme or build tools)
+node_modules/

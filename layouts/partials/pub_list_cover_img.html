@@ -1,0 +1,22 @@
+{{- /* Publication card cover: same bundle lookup as theme cover.html; ?s=byteSize busts browser cache when file is replaced. Context = publication Page */ -}}
+{{- $pub := . }}
+{{- $isHidden := ($pub.Param "cover.hiddenInList") | default ($pub.Param "cover.hidden") | default false }}
+{{- if not $isHidden }}
+  {{- with $pub.Params.cover.image }}
+    {{- $path := . }}
+    {{- $img := "" }}
+    {{- if eq ($pub.Params.cover.relative | default true) false }}
+      {{- $img = $path | absURL }}
+    {{- else }}
+      {{- $res := ($pub.Resources.ByType "image").GetMatch (printf "*%s*" $path) }}
+      {{- if $res }}
+        {{- $img = ($res | fingerprint "md5").RelPermalink | absURL }}
+      {{- else }}
+        {{- $img = path.Join $pub.RelPermalink $path | absURL }}
+      {{- end }}
+    {{- end }}
+    <button type="button" class="pub-cover-lightbox-trigger" aria-label="{{ printf "View larger cover image: %s" ($pub.Title | plainify) }}">
+      <img src="{{ $img }}" alt="{{ $pub.Params.cover.alt | default ($pub.Title | plainify) }}" loading="lazy">
+    </button>
+  {{- end }}
+{{- end }}

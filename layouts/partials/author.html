@@ -1,0 +1,44 @@
+{{- $p := . }}
+{{- $format := "html" }}
+{{- if reflect.IsMap . }}
+  {{- with index . "ctx" }}{{ $p = . }}{{ end }}
+  {{- $format = index . "format" | default "html" }}
+{{- end }}
+
+{{- if or $p.Params.author site.Params.author }}
+{{- $author := ($p.Params.author | default site.Params.author) }}
+{{- $author_type := (printf "%T" $author) }}
+{{- $self := site.Params.author | default "Sunkanghong Wang" }}
+{{- $corr := slice }}
+{{- $sup := slice }}
+{{- if eq $p.Section "publications" }}
+  {{- $corr = $p.Params.correspondingAuthor | default slice }}
+  {{- $sup = $p.Params.supervisedStudents | default slice }}
+{{- end }}
+{{- if (or (eq $author_type "[]string") (eq $author_type "[]interface {}")) }}
+{{- $parts := slice }}
+{{- range $author }}
+  {{- $name := printf "%v" . }}
+  {{- $mark := "" }}
+  {{- if in $corr $name }}{{ $mark = "*" }}{{ else if in $sup $name }}{{ $mark = "#" }}{{ end }}
+  {{- if eq $format "plain" }}
+    {{- $parts = $parts | append (printf "%s%s" $name $mark) }}
+  {{- else }}
+    {{- $markHtml := $mark }}
+    {{- if eq $mark "#" }}{{ $markHtml = `<sup class="pub-author-mark-sup" aria-hidden="true">#</sup>` }}{{ end }}
+    {{- if eq $name $self }}
+      {{- $parts = $parts | append (printf `<span class="author-self">%s%s</span>` $name $markHtml) }}
+    {{- else }}
+      {{- $parts = $parts | append (printf "%s%s" $name $markHtml) }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+{{- if eq $format "plain" }}
+{{- delimit $parts ", " }}
+{{- else }}
+{{- (delimit $parts ",&thinsp;" | safeHTML) }}
+{{- end }}
+{{- else }}
+{{- $author }}
+{{- end }}
+{{- end -}}

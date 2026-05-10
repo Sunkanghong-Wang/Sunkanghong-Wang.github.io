@@ -1,0 +1,18 @@
+{{- $pv := site.Params.pageViews | default dict -}}
+{{- if ($pv.enabled | default true) -}}
+{{- $icon := $pv.icon | default "👣" -}}
+{{- $img := $pv.counterImgSrc | default "https://hitwebcounter.com/counter/counter.php?page=21439720&style=0006&nbdigits=5&type=page&initCount=134" -}}
+{{- $href := $pv.counterHref | default "https://www.hitwebcounter.com/" -}}
+{{- $tip := $pv.tooltip | default "Approximate site-wide visits: a baseline from my earlier Google Site plus counts since this site launched." -}}
+<div class="site-pageviews" tabindex="0" role="group" aria-labelledby="site-pageviews-title" aria-describedby="site-pageviews-desc">
+    <span id="site-pageviews-title" class="site-pageviews-sr-only">Site page views</span>
+    <span id="site-pageviews-desc" class="site-pageviews-sr-only">{{ $tip }}</span>
+    <span class="site-pageviews-row" aria-hidden="true">
+        <span class="site-pageviews-icon">{{ $icon }}</span>
+        <a class="site-pageviews-counter-link" href="{{ $href | safeURL }}" target="_blank" rel="noopener noreferrer" tabindex="-1">
+            <img class="site-pageviews-counter-img" src="{{ $img | safeURL }}" alt="" decoding="async" />
+        </a>
+    </span>
+    <div class="site-pageviews-tooltip" aria-hidden="true">{{ $tip }}</div>
+</div>
+{{- end -}}

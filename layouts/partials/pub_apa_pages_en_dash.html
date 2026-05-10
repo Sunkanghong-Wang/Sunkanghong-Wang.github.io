@@ -1,0 +1,3 @@
+{{- /* Numeric page ranges: hyphen → en dash (735-753 → 735–753). */ -}}
+{{- $p := printf "%v" . }}
+{{- replaceRE `([0-9]+)-([0-9]+)` `${1}–${2}` $p }}

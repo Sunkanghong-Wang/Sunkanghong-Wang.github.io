@@ -1,0 +1,19 @@
+{{- /* APA 7 reference-list author line with &: "A., B., & C." Context = publication Page. */ -}}
+{{- $pg := . }}
+{{- $authors := $pg.Params.author }}
+{{- if not $authors }}
+{{- else }}
+  {{- $bibs := slice }}
+  {{- range $authors }}
+    {{- $b := strings.TrimSpace (partial "pub_display_name_to_apa_reference.html" (dict "displayName" (printf "%v" .))) }}
+    {{- if $b }}{{ $bibs = $bibs | append $b }}{{ end }}
+  {{- end }}
+  {{- $n := len $bibs }}
+  {{- if eq $n 1 }}
+    {{- index $bibs 0 }}
+  {{- else if eq $n 2 }}
+    {{- printf "%s, & %s" (index $bibs 0) (index $bibs 1) }}
+  {{- else }}
+    {{- printf "%s, & %s" (delimit (first (sub $n 1) $bibs) ", ") (index $bibs (sub $n 1)) }}
+  {{- end }}
+{{- end }}

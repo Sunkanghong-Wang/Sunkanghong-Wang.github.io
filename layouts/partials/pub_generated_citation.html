@@ -1,0 +1,51 @@
+{{- /* Single-page Citation block: APA 7 reference-list paragraph + BibTeX from front matter. Context = publication Page. */ -}}
+{{- $pg := . -}}
+{{- $authors := $pg.Params.author }}
+{{- if $authors }}
+{{- $authorLine := partial "pub_apa_reference_author_line.html" $pg | strings.TrimSpace }}
+{{- $year := "n.d." }}
+{{- if not $pg.Date.IsZero }}{{ $year = $pg.Date.Format "2006" }}{{ end }}
+{{- $bibtexKey := $pg.Params.bibtexKey | default (printf "%s%s" $pg.File.ContentBaseName $year) }}
+{{- $apaTitle := partial "pub_apa_sentence_case_title.html" $pg.Title | strings.TrimSpace }}
+{{- if not $apaTitle }}{{ $apaTitle = $pg.Title }}{{ end }}
+{{- $journal := $pg.Params.journal }}
+{{- $vol := $pg.Params.volume }}
+{{- $issue := $pg.Params.issue }}
+{{- $pagesDisp := "" }}
+{{- with $pg.Params.pages }}{{ $pagesDisp = partial "pub_apa_pages_en_dash.html" . | strings.TrimSpace }}{{ end }}
+{{- $doi := $pg.Params.doi }}
+
+{{- $bibAuth := slice }}
+{{- range $authors }}
+  {{- $b := strings.TrimSpace (partial "pub_display_name_to_biblio.html" (dict "displayName" (printf "%v" .))) }}
+  {{- if $b }}{{ $bibAuth = $bibAuth | append $b }}{{ end }}
+{{- end }}
+{{- $bibAuthJoin := delimit $bibAuth " and " }}
+
+{{- $bib := print "@article{" $bibtexKey ",\n  author = {" $bibAuthJoin "},\n  title = {" $pg.Title "}" }}
+{{- if $journal }}
+  {{- $jbib := replace $journal "&" "\\&" }}
+  {{- $bib = print $bib ",\n  journal = {" $jbib "}" }}
+{{- end }}
+{{- with $pg.Params.volume }}{{ $bib = print $bib ",\n  volume = {" . "}" }}{{ end }}
+{{- with $pg.Params.issue }}{{ $bib = print $bib ",\n  number = {" . "}" }}{{ end }}
+{{- with $pg.Params.pages }}
+  {{- $bibPages := replace (printf "%v" .) "-" "--" }}
+  {{- $bib = print $bib ",\n  pages = {" $bibPages "}" }}
+{{- end }}
+{{- if ne $year "n.d." }}{{ $bib = print $bib ",\n  year = {" $year "}" }}{{ end }}
+{{- with $doi }}{{ $bib = print $bib ",\n  doi = {" . "}" }}{{ end }}
+{{- $bib = print $bib "\n}" }}
+
+<div class="post-content publication-content pub-citation-block">
+  <h5 id="citation">{{ i18n "citation" | default "Citation" }}</h5>
+  {{- /* safeHTML: ampersand before last author must stay a literal &, not double-escaped */}}
+  <p>{{ $authorLine | safeHTML }} ({{ $year }}). {{ $apaTitle }}.
+    {{- if $journal }} <em>{{ $journal }}</em>{{ end -}}
+    {{- if $vol }}, <em>{{ $vol }}</em>{{ end -}}
+    {{- if $issue }}({{ $issue }}){{ end -}}
+    {{- if $pagesDisp }}, {{ $pagesDisp }}{{ end -}}
+    {{- if $doi }}. https://doi.org/{{ $doi }}{{ else }}.{{ end }}</p>
+  <pre><code class="language-latex">{{ $bib }}</code></pre>
+</div>
+{{- end }}

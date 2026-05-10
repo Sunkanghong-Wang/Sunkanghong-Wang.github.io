@@ -1,0 +1,28 @@
+{{- define "main" }}
+<article class="about-page moments-page">
+  <section class="about-section moments-feed-section">
+    <ol class="moments-timeline">
+      {{- range .Pages.ByDate.Reverse }}
+      {{- $iso := .Date.Format "2006-01-02" }}
+      {{- $human := .Date.Format "Jan 2, 2006" }}
+      <li class="moments-timeline-item moments-timeline-item--clickable">
+        <time class="moments-date" datetime="{{ $iso }}">{{ $human }}</time>
+        <div class="moments-timeline-axis" aria-hidden="true">
+          <span class="moments-timeline-dot"></span>
+        </div>
+        <div class="moments-timeline-body">
+          <h3 class="moments-headline" id="moments-teaser-{{ .Slug }}">{{ .Title }}</h3>
+          {{- if .Description }}
+          <p class="moments-summary">{{ .Description }}</p>
+          {{- else if .Summary }}
+          <p class="moments-summary">{{ .Summary | plainify | truncate 220 }}</p>
+          {{- end }}
+        </div>
+        <a class="moments-item-full-link" href="{{ .RelPermalink }}" aria-labelledby="moments-teaser-{{ .Slug }}"></a>
+      </li>
+      {{- end }}
+    </ol>
+  </section>
+</article>
+{{- partial "moments_timeline_script.html" . }}
+{{- end }}

@@ -1,0 +1,200 @@
+/* ============== Hero (homepage) ============== */
+.hero {
+    position: relative;
+    width: 100%;
+    isolation: isolate;
+}
+
+/* WebGL field canvas — every pixel is shader-rendered, so no CSS
+   background is needed. Fallback color is set to match the shader's
+   bias for the case where WebGL is unavailable. */
+.hero-bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(1400px 900px at 70% 20%, rgba(220, 230, 245, 0.45), transparent 60%),
+        radial-gradient(1100px 800px at 20% 90%, rgba(238, 230, 245, 0.40), transparent 65%),
+        linear-gradient(180deg, #f9fafd 0%, #f3f5fa 100%);
+}
+
+.hero-grid,
+.hero-glow { display: none; }
+
+/* Soft halo behind the centered content so text always reads cleanly
+   regardless of how dense the field becomes underneath it. */
+.profile_inner::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 130%;
+    height: 220%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(
+        ellipse 60% 50% at center,
+        rgba(255, 255, 255, 0.85) 0%,
+        rgba(255, 255, 255, 0.55) 35%,
+        rgba(255, 255, 255, 0)    75%
+    );
+    z-index: -1;
+    pointer-events: none;
+}
+
+.hero-glow {
+    display: none;
+}
+
+/* Profile content sits above the animated background */
+.main .profile {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: calc(100vh - var(--footer-height) - (var(--gap) * 2));
+    font-size: var(--homesize);
+    line-height: var(--lineheight);
+    padding: calc(var(--gap) * 3) var(--gap) var(--gap);
+    position: relative;
+    z-index: 1;
+}
+
+.profile .profile_inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+    animation: heroFadeIn 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+    isolation: isolate;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes heroFadeIn {
+    0%   { opacity: 0; transform: translateY(14px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.profile .profile_inner h1 {
+    font-size: 2.5rem;
+    color: var(--primary);
+    letter-spacing: -0.01em;
+}
+
+.profile img {
+    border-radius: 50%;
+    border: 1px solid var(--tertiary);
+    position: relative;
+    z-index: 1;
+}
+
+/* ===== Avatar ring ===== */
+.profile-avatar-wrap {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 4px;
+}
+
+.profile-avatar-wrap img {
+    display: block;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 8px 24px -10px rgba(0, 0, 0, 0.18);
+    transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.profile-avatar-wrap:hover img {
+    transform: scale(1.04);
+}
+
+.profile-avatar-ring {
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    background:
+        conic-gradient(
+            from 0deg,
+            rgba(30, 30, 30, 0)   0deg,
+            rgba(30, 30, 30, 0.45) 90deg,
+            rgba(30, 30, 30, 0)   180deg,
+            rgba(30, 30, 30, 0.45) 270deg,
+            rgba(30, 30, 30, 0)   360deg
+        );
+    -webkit-mask: radial-gradient(circle, transparent 56%, #000 58%);
+            mask: radial-gradient(circle, transparent 56%, #000 58%);
+    z-index: 1;
+    animation: ringSpin 14s linear infinite;
+    opacity: 0.6;
+}
+
+@keyframes ringSpin {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.hero-subtitle {
+    position: relative;
+    color: var(--secondary);
+}
+
+.hero-subtitle::before {
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--primary);
+    vertical-align: middle;
+    margin-right: 10px;
+    transform-origin: left center;
+    animation: heroLineGrow 1.2s cubic-bezier(0.22, 0.61, 0.36, 1) 0.4s both;
+}
+
+@keyframes heroLineGrow {
+    0%   { transform: scaleX(0); opacity: 0; }
+    100% { transform: scaleX(1); opacity: 1; }
+}
+
+/* ===== Buttons ===== */
+.button {
+    background: var(--primary);
+    border: 1px solid var(--primary);
+    border-radius: var(--radius);
+    margin: 6px 12px 6px 0px;
+    padding: 10px;
+    color: #ffffff;
+    box-shadow: 0 4px 14px -6px rgba(0, 0, 0, 0.35);
+    transition: background 0.2s ease, border-color 0.2s ease,
+        transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+}
+
+.button-inner {
+    padding: 0 8px;
+}
+
+.button:hover {
+    background: #ffffff;
+    color: var(--primary);
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px -6px rgba(0, 0, 0, 0.25);
+}
+
+/* ===== Reduced motion ===== */
+@media (prefers-reduced-motion: reduce) {
+    .profile-avatar-ring,
+    .profile_inner,
+    .hero-subtitle::before {
+        animation: none !important;
+    }
+}

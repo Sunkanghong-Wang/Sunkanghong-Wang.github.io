@@ -1,0 +1,15 @@
+{{- define "main" }}
+
+<article class="about-page{{- if eq .File.ContentBaseName "awards" }} awards-page{{- else if eq .File.ContentBaseName "patents" }} moments-page patents-page{{- else if eq .File.ContentBaseName "conferences" }} moments-page patents-page conferences-page{{- else if eq .File.ContentBaseName "ongoing-papers" }} moments-page ongoing-papers-page{{- end }}">
+  {{- if .Content }}
+  {{- $cvHref := partialCached "latest_cv_compute.html" site -}}
+  {{- $body := replace .Content `href="/cv.pdf"` (printf `href="%s"` $cvHref) -}}
+  {{- $body | safeHTML }}
+  {{- end }}
+</article>
+
+{{- if or (eq .File.ContentBaseName "awards") (eq .File.ContentBaseName "patents") (eq .File.ContentBaseName "conferences") }}
+{{- partial "moments_timeline_script.html" . }}
+{{- end }}
+
+{{- end }}{{/* end main */}}
