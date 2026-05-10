@@ -15,6 +15,19 @@ description: "Honors, competition prizes, and scholarships received by Sunkangho
     <div class="awards-fold-body">
 <ol class="about-awards moments-timeline awards-sublist-last">
     <li class="moments-timeline-item">
+      <span class="aw-year">2026</span>
+      <div class="moments-timeline-axis" aria-hidden="true">
+        <span class="moments-timeline-dot"></span>
+      </div>
+      <div class="moments-timeline-body">
+      <div class="aw-body">
+        <div class="aw-title">Student Representative of the National Scholarship for Graduate Students</div>
+        <div class="aw-detail">One of 100 recipients among all Master's and PhD students in China in 2026 (~0.003%)</div>
+        <div class="aw-detail">Ministry of Education of China</div>
+      </div>
+      </div>
+    </li>
+    <li class="moments-timeline-item">
       <span class="aw-year">2025</span>
       <div class="moments-timeline-axis" aria-hidden="true">
         <span class="moments-timeline-dot"></span>
