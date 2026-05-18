@@ -1,5 +1,5 @@
 ---
-title: "🎉 Launching my personal academic website"
+title: "☕ Launching my personal academic website"
 date: 2026-05-10
 description: "Started in a café during my graduation trip, shaped in small passes over weeks, and finally live—just the way I hoped it would be."
 ---
