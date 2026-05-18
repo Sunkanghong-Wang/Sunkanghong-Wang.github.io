@@ -99,8 +99,9 @@ description: "About Sunkanghong Wang — biography, research interests, skills, 
   <p>🎓 I am currently pursuing a master&apos;s degree in Mechanical Engineering at <a href="https://www.gdut.edu.cn/" target="_blank" rel="noopener">Guangdong University of Technology</a> (GDUT), Guangzhou, Guangdong, China, and expect to graduate in June 2026.</p>
   <p>🏆 Throughout my academic journey, I have published <strong>5</strong> papers in leading international journals, received <strong>9</strong> scholarships, secured <strong>11</strong> invention patents, and won <strong>19</strong> competition awards. I was also honored as an Outstanding Graduate of GDUT.</p>
   <p>🌐 Beyond academia, I actively share study notes and technical insights on the <a href="https://wskh0929.blog.csdn.net" target="_blank" rel="noopener">Chinese Software Developer Network (CSDN)</a>. My blog has attracted <strong>24k+</strong> followers, <strong>5.8M+</strong> reads, <strong>18k+</strong> favorites, and <strong>84k+</strong> shares, allowing me to engage with a broader technical community, provide practical solutions, and promote knowledge sharing.</p>
-  <p>👥 I am passionate about collaborating on challenging projects at the intersection of operations research, discrete optimization, algorithms, and real-world applications. If you are working on complex problems or cutting-edge solutions where I may be able to contribute, let us connect and create something meaningful together!</p>
+  <p>👥 I am passionate about collaborating on challenging projects at the intersection of operations research, discrete optimization, algorithms, and real-world applications. If you are working on complex problems or cutting-edge solutions where I may be able to contribute, <strong><i>let us connect and create something meaningful together!</i></strong></i></p>
 </section>
+
 
 
 <section class="about-section">
@@ -136,7 +137,6 @@ description: "About Sunkanghong Wang — biography, research interests, skills, 
     </article>
   </div>
 </section>
-
 <section class="about-section">
   <h2 class="about-h2">Education</h2>
   <ol class="about-timeline">
@@ -152,7 +152,7 @@ description: "About Sunkanghong Wang — biography, research interests, skills, 
         <div class="t-meta">
           <div class="t-meta-row">
             <span class="t-meta-label">Supervisor</span>
-            <span class="t-meta-value">Prof. <a href="https://scholar.google.com/citations?hl=en&amp;user=mFryVLAAAAAJ" target="_blank" rel="noopener"><strong>Zhou Xu</strong></a> <span class="t-role">chief</span></span>
+            <span class="t-meta-value">Prof. <a href="https://scholar.google.com/citations?hl=en&amp;user=mFryVLAAAAAJ" target="_blank" rel="noopener"><strong>Zhou Xu (徐宙)</strong></a> <span class="t-role">chief</span> · Prof. <a href="https://scholar.google.com/citations?user=xgHasy0AAAAJ&hl=en" target="_blank" rel="noopener"><strong>Xiaowen Fu (符嘯文)</strong></a> <span class="t-role">co-supervisor</span></span>
           </div>
         </div>
       </div>
@@ -177,7 +177,7 @@ description: "About Sunkanghong Wang — biography, research interests, skills, 
           </div>
           <div class="t-meta-row">
             <span class="t-meta-label">Supervisors</span>
-            <span class="t-meta-value">Prof. <a href="https://scholar.google.com/citations?hl=en&amp;user=LZMRkMoAAAAJ" target="_blank" rel="noopener"><strong>Lijun Wei</strong></a> <span class="t-role">chief</span> · Prof. <a href="https://scholar.google.com/citations?hl=en&amp;user=VSepEFYAAAAJ" target="_blank" rel="noopener"><strong>Roberto Baldacci</strong></a> <span class="t-role">co-supervisor</span></span>
+            <span class="t-meta-value">Prof. <a href="https://scholar.google.com/citations?hl=en&amp;user=LZMRkMoAAAAJ" target="_blank" rel="noopener"><strong>Lijun Wei (魏丽军)</strong></a> <span class="t-role">chief</span> · Prof. <a href="https://scholar.google.com/citations?hl=en&amp;user=VSepEFYAAAAJ" target="_blank" rel="noopener"><strong>Roberto Baldacci</strong></a> <span class="t-role">co-supervisor</span></span>
           </div>
         </div>
       </div>
@@ -202,13 +202,14 @@ description: "About Sunkanghong Wang — biography, research interests, skills, 
           </div>
           <div class="t-meta-row">
             <span class="t-meta-label">Supervisors</span>
-            <span class="t-meta-value">Prof. <a href="https://scholar.google.com/citations?hl=en&amp;user=LZMRkMoAAAAJ" target="_blank" rel="noopener"><strong>Lijun Wei</strong></a> <span class="t-role">chief</span> · Dr. <a href="https://scholar.google.com/citations?user=fSlkv-gAAAAJ&amp;hl=en" target="_blank" rel="noopener"><strong>Hao Zhang</strong></a> <span class="t-role">co-supervisor</span></span>
+            <span class="t-meta-value">Prof. <a href="https://scholar.google.com/citations?hl=en&amp;user=LZMRkMoAAAAJ" target="_blank" rel="noopener"><strong>Lijun Wei (魏丽军)</strong></a> <span class="t-role">chief</span> · Dr. <a href="https://scholar.google.com/citations?user=fSlkv-gAAAAJ&amp;hl=en" target="_blank" rel="noopener"><strong>Hao Zhang (张浩)</strong></a> <span class="t-role">co-supervisor</span></span>
           </div>
         </div>
       </div>
     </li>
   </ol>
 </section>
+
 
 <section class="about-section">
   <h2 class="about-h2">Experience</h2>
@@ -281,19 +282,6 @@ description: "About Sunkanghong Wang — biography, research interests, skills, 
         <span class="skill-chip">MATLAB</span>
         <span class="skill-chip">JavaScript</span>
         <span class="skill-chip">R</span>
-      </div>
-    </div>
-    <div class="skill-group service-entry">
-      <h3>Tools &amp; environments</h3>
-      <div class="skill-chips">
-        <span class="skill-chip">Gurobi</span>
-        <span class="skill-chip">CPLEX</span>
-        <span class="skill-chip">OR-Tools</span>
-        <span class="skill-chip">Git</span>
-        <span class="skill-chip">LaTeX</span>
-        <span class="skill-chip">Linux</span>
-        <span class="skill-chip">Docker</span>
-        <span class="skill-chip">Hugo</span>
       </div>
     </div>
     <div class="skill-group service-entry">
