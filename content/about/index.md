@@ -97,10 +97,11 @@ description: "About Sunkanghong Wang — biography, research interests, skills, 
 <section class="about-section">
   <h2 class="about-h2">About me</h2>
   <p>🎓 I am currently pursuing a master&apos;s degree in Mechanical Engineering at <a href="https://www.gdut.edu.cn/" target="_blank" rel="noopener">Guangdong University of Technology</a> (GDUT), Guangzhou, Guangdong, China, and expect to graduate in June 2026.</p>
-  <p>🏆 Throughout my academic journey, I have published <strong>5</strong> papers in leading international journals, received <strong>9</strong> scholarships, secured <strong>11</strong> invention patents, and won <strong>19</strong> competition awards. I was also honored as an Outstanding Graduate of GDUT.</p>
+  <p>🏆 Throughout my academic journey, I have published <strong>5</strong> papers in leading international journals, received <strong>10</strong> scholarships, secured <strong>11</strong> invention patents, and won <strong>19</strong> competition awards. I was also honored as an Outstanding Graduate of GDUT.</p>
   <p>🌐 Beyond academia, I actively share study notes and technical insights on the <a href="https://wskh0929.blog.csdn.net" target="_blank" rel="noopener">Chinese Software Developer Network (CSDN)</a>. My blog has attracted <strong>24k+</strong> followers, <strong>5.8M+</strong> reads, <strong>18k+</strong> favorites, and <strong>84k+</strong> shares, allowing me to engage with a broader technical community, provide practical solutions, and promote knowledge sharing.</p>
   <p>👥 I am passionate about collaborating on challenging projects at the intersection of operations research, discrete optimization, algorithms, and real-world applications. If you are working on complex problems or cutting-edge solutions where I may be able to contribute, <strong><i>let us connect and create something meaningful together!</i></strong></i></p>
 </section>
+
 
 
 
@@ -217,6 +218,17 @@ description: "About Sunkanghong Wang — biography, research interests, skills, 
     <li>
       <span class="t-dot"></span>
       <div class="t-logo" data-school="BYIT">
+        <img src="/edu-logos/polyu.png" alt="Guangzhou Bingyou Information Technology" onerror="this.style.display='none'" />
+      </div>
+      <div class="t-body">
+        <div class="t-when">Jul 2026 — Sep 2026</div>
+        <div class="t-what">Research Assistant</div>
+        <div class="t-where"><a href="https://www.polyu.edu.hk/" target="_blank" rel="noopener">The Hong Kong Polytechnic University</a> · Hong Kong, China</div>
+      </div>
+    </li>
+    <li>
+      <span class="t-dot"></span>
+      <div class="t-logo" data-school="BYIT">
         <img src="/edu-logos/bingyou.jpg" alt="Guangzhou Bingyou Information Technology" onerror="this.style.display='none'" />
       </div>
       <div class="t-body">
@@ -227,6 +239,7 @@ description: "About Sunkanghong Wang — biography, research interests, skills, 
     </li>
   </ol>
 </section>
+
 
 <section class="about-section">
   <h2 class="about-h2">Research interests</h2>
