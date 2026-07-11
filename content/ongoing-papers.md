@@ -10,8 +10,9 @@ description: "Manuscripts under review and working papers — Sunkanghong Wang."
   <h2 class="about-h2">In-Review Papers</h2>
   <ul class="ongoing-papers-list">
     <li><strong class="patent-self">Wang, S.</strong>, Baldacci, R., Furini, F., Wei, L.*, &amp; Liu, Q.* (2025). <a class="ongoing-papers-title" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5322387" target="_blank" rel="noopener noreferrer">Exact Algorithms for Two-Dimensional Knapsack Problems: A Unified Framework with New Benchmark Results.</a> <span class="ongoing-papers-status">Under Minor Revision at</span> <em class="ongoing-papers-journal">INFORMS Journal on Computing</em>.</li>
-    <li><strong class="patent-self">Wang, S.</strong>, Baldacci, R., Furini, F., Wei, L., &amp; Liu, Q. (2025). <a class="ongoing-papers-title" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5515822" target="_blank" rel="noopener noreferrer">A Highly Efficient Numerically Exact Algorithm for Two-Dimensional Bin-Packing Problems.</a> <span class="ongoing-papers-status">Under Review at</span> <em class="ongoing-papers-journal">Operations Research</em>.</li>
+    <li><strong class="patent-self">Wang, S.</strong>, Baldacci, R., Furini, F., Wei, L., &amp; Liu, Q. (2025). <a class="ongoing-papers-title" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5515822" target="_blank" rel="noopener noreferrer">A Highly Efficient Numerically Exact Algorithm for Two-Dimensional Bin-Packing Problems.</a> <span class="ongoing-papers-status">Under Major Revision at</span> <em class="ongoing-papers-journal">Operations Research</em>.</li>
   </ul>
+
 
 
   <h2 class="about-h2">Working Papers</h2>
