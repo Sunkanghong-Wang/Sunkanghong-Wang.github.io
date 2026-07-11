@@ -480,6 +480,19 @@ description: "Honors, competition prizes, and scholarships received by Sunkangho
   <h3 class="awards-subh">Donor-sponsored scholarships</h3>
   <ol class="about-awards moments-timeline awards-sublist-last">
     <li class="moments-timeline-item">
+      <span class="aw-year">2026</span>
+      <div class="moments-timeline-axis" aria-hidden="true">
+        <span class="moments-timeline-dot"></span>
+      </div>
+      <div class="moments-timeline-body">
+      <div class="aw-body">
+        <div class="aw-title">Ada Intelligent First-Class Scholarship</div>
+        <div class="aw-detail">Ranked 5<sup>th</sup> out of 1500+ · Top 0.3%</div>
+        <div class="aw-org">Guangdong Ada Semiconductor Equipment Co., Ltd.</div>
+      </div>
+      </div>
+    </li>
+    <li class="moments-timeline-item">
       <span class="aw-year">2025</span>
       <div class="moments-timeline-axis" aria-hidden="true">
         <span class="moments-timeline-dot"></span>
