@@ -13,8 +13,8 @@ description: "About Sunkanghong Wang — biography, research interests, skills, 
     <h1 class="about-name">Sunkanghong Wang</h1>
     <p class="about-name-cn">王孙康宏</p>
     <p class="about-tagline"><span class="about-tagline-text"><strong>To create is to live twice.</strong></span><span class="about-tagline-source">Albert Camus, <cite>The Myth of Sisyphus</cite></span></p>
-    <p class="about-role">M.S. Candidate · Operations Research &amp; Discrete Optimization</p>
-    <p class="about-affiliation">School of Electromechanical Engineering<br/>Guangdong University of Technology · Guangzhou, China</p>
+    <p class="about-role">PhD Student · Operations Research &amp; Discrete Optimization</p>
+    <p class="about-affiliation">Department of Logistics and Maritime Studies ·&nbsp;Faculty of Business<br>The Hong Kong Polytechnic University · Hong Kong, China</p>
     <div class="about-actions">
       <a class="about-btn about-btn-primary" href="/cv.pdf" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
