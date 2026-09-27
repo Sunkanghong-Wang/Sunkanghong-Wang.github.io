@@ -197,8 +197,8 @@ description: "About Sunkanghong Wang — biography, research interests, skills, 
   <ol class="about-timeline">
     <li>
       <span class="t-dot"></span>
-      <div class="t-logo" data-school="BYIT">
-        <img src="/edu-logos/polyu.png" alt="Guangzhou Bingyou Information Technology" onerror="this.style.display='none'" />
+      <div class="t-logo" data-school="PolyU">
+        <img src="/edu-logos/polyu.png" alt="The Hong Kong Polytechnic University" onerror="this.style.display='none'" />
       </div>
       <div class="t-body">
         <div class="t-when">Jul 2026 — Sep 2026</div>
