@@ -24,7 +24,7 @@ description: "Manuscripts under review and working papers — Sunkanghong Wang."
     <li><strong class="patent-self">Wang, S.</strong>, You, Z.*, Baldacci, R., Wei, L.*, &amp; Xu, Z. <span class="ongoing-papers-title">A unified exact algorithm with novel bounding techniques for solving vehicle routing problems with two-dimensional loading constraints.</span></li>
     <li>Zhang, W.<sup class="pub-author-mark-sup" aria-hidden="true">#</sup>, <strong class="patent-self">Wang, S.</strong> (Co-First), Wei, L.*, &amp; Liu, Q. <span class="ongoing-papers-title">A new branch-and-price-based heuristic algorithm for the three-dimensional bin-packing problem with stacking constraints.</span></li>
 <li>Chen, Z.<sup class="pub-author-mark-sup" aria-hidden="true">#</sup>, <strong class="patent-self">Wang, S.</strong> (Co-First), Yi, H., Zhang, H.*, Liu, Q.*, &amp; Wei, L.* <span class="ongoing-papers-title">Learning-driven skyline-based variable neighborhood search for fast floorplanning.</span></li>
-<li>Xu, J., Deng, J.<sup class="pub-author-mark-sup" aria-hidden="true">#</sup>,&nbsp;<span class="patent-self">Wang, S.</span>, Chen, Z., &amp; Liu, Z. <span class="ongoing-papers-title">Capacity allocation and common due-date assignment in distributed factories: A branch-and-price approach to joint order acceptance and just-in-time scheduling.</span></li>
+<li>Xu, J., Deng, J.<sup class="pub-author-mark-sup" aria-hidden="true">#</sup>,&nbsp;<span class="patent-self">Wang, S.</span>, Lin, G., Chen, Z., &amp; Liu, Z. <span class="ongoing-papers-title">Capacity allocation and common due-date assignment in distributed factories: A branch-and-price approach to joint order acceptance and just-in-time scheduling.</span></li>
         
   </ul>
 </section>
