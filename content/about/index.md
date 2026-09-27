@@ -147,6 +147,51 @@ description: "About Sunkanghong Wang — biography, research interests, skills, 
   </div>
 </section>
 
+<section class="about-section" data-studio-section="skills">
+  <h2 class="about-h2">Skills</h2>
+  <div class="skill-groups">
+    <div class="skill-group service-entry">
+      <h3>Programming</h3>
+      <div class="skill-chips">
+        <span class="skill-chip">Java</span>
+        <span class="skill-chip">Python</span>
+        <span class="skill-chip">C/C++</span>
+        <span class="skill-chip">MATLAB</span>
+        <span class="skill-chip">JavaScript</span>
+        <span class="skill-chip">R</span>
+      </div>
+    </div>
+    <div class="skill-group service-entry">
+      <h3>Methodology</h3>
+      <div class="skill-chips">
+        <span class="skill-chip">Branch-and-bound</span>
+        <span class="skill-chip">Dynamic programming</span>
+        <span class="skill-chip">Column(-and-row) generation</span>
+        <span class="skill-chip">Branch-and-price(-and-cut)</span>
+        <span class="skill-chip">(Logic-based) Benders decomposition</span>
+        <span class="skill-chip">Metaheuristics</span>
+        <span class="skill-chip">Machine learning</span>
+        <span class="skill-chip">Data analysis</span>
+        <span class="skill-chip">Data structure</span>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="about-section" data-studio-section="services">
+  <h2 class="about-h2">Academic Service</h2>
+  <div class="about-service">
+    <article class="service-entry">
+      <h3 class="service-role">Peer Reviewer</h3>
+      <div class="service-journals"><span class="pub-journal-badge" title="Journal">Omega</span>
+        <span class="pub-journal-badge" title="Journal">Computers &amp; Operations Research</span>
+        <span class="pub-journal-badge" title="Journal">Memetic Computing</span>
+        <span class="pub-journal-badge" title="Journal">International Journal of Computational Intelligence Systems</span>
+        <span class="pub-journal-badge" title="Journal">The Journal of Supercomputing</span></div>
+    </article>
+  </div>
+</section>
+
+
 <section class="about-section" data-studio-section="experience">
   <h2 class="about-h2">Working Experience</h2>
   <ol class="about-timeline">
@@ -174,6 +219,8 @@ description: "About Sunkanghong Wang — biography, research interests, skills, 
     </li>
   </ol>
 </section>
+
+
 <section class="about-section" data-studio-section="education">
   <h2 class="about-h2">Education</h2>
   <ol class="about-timeline">
@@ -247,69 +294,36 @@ description: "About Sunkanghong Wang — biography, research interests, skills, 
   </ol>
 </section>
 
-
 <section class="about-section" data-studio-section="projects">
-  <h2 class="about-h2">Projects</h2>
+  <h2 class="about-h2">Research Projects</h2>
   <ul class="about-projects">
     <li class="project-item">
+      <div class="project-title-row">
+        <span class="project-time-pill">2026～Present</span>
+        <div class="project-main">Numerically Exact Solution Methods for Variable-Sized Bin Packing Problems</div>
+      </div>
+      <div class="project-extra">Main Participant&nbsp; ｜ National Natural Science Foundation of China (NSFC) ｜ General Program</div>
+    </li>
+    <li class="project-item">
+      <div class="project-title-row">
+        <span class="project-time-pill">2026～Present</span>
+        <div class="project-main">Column-Generation-Based Method for Precedence-Constrained Multi-Dimensional Bin Packing Problem</div>
+      </div>
+      <div class="project-extra">Main Participant ｜ RMB 100,000 ｜ Regional Joint Fund Youth Fund Project</div>
+    </li>
+<li class="project-item">
       <div class="project-title-row">
         <span class="project-time-pill">2025～Present</span>
         <div class="project-main">“Smart Innovation” — A Digital-Twin-Based Intelligent Leather Nesting System</div>
       </div>
-      <div class="project-extra">Participant ｜ RMB 100,000 ｜ Guangdong Provincial Science and Technology Innovation Strategy Special Fund ｜ Key Program</div>
+      <div class="project-extra">Main Participant&nbsp;｜ RMB 100,000 ｜ Guangdong Provincial Science and Technology Innovation Strategy Special Fund ｜ Key Program</div>
     </li>
-    <li class="project-item">
+<li class="project-item">
       <div class="project-title-row">
         <span class="project-time-pill">2023～2026</span>
         <div class="project-main">Macro–Micro Hybrid Optimization Methods for Floorplanning in VLSI Circuit Design</div>
       </div>
-      <div class="project-extra">Participant ｜ RMB 480,000 ｜ National Natural Science Foundation of China (NSFC) ｜ General Program</div>
+      <div class="project-extra">Main Participant ｜ RMB 480,000 ｜ National Natural Science Foundation of China (NSFC) ｜ General Program</div>
     </li>
   </ul>
-</section>
-
-
-<section class="about-section" data-studio-section="services">
-  <h2 class="about-h2">Academic Service</h2>
-  <div class="about-service">
-    <article class="service-entry">
-      <h3 class="service-role">Peer Reviewer</h3>
-      <div class="service-journals"><span class="pub-journal-badge" title="Journal">Omega</span>
-        <span class="pub-journal-badge" title="Journal">Computers &amp; Operations Research</span>
-        <span class="pub-journal-badge" title="Journal">Memetic Computing</span>
-        <span class="pub-journal-badge" title="Journal">International Journal of Computational Intelligence Systems</span>
-        <span class="pub-journal-badge" title="Journal">The Journal of Supercomputing</span></div>
-    </article>
-  </div>
-</section>
-
-<section class="about-section" data-studio-section="skills">
-  <h2 class="about-h2">Skills</h2>
-  <div class="skill-groups">
-    <div class="skill-group service-entry">
-      <h3>Programming</h3>
-      <div class="skill-chips">
-        <span class="skill-chip">Java</span>
-        <span class="skill-chip">Python</span>
-        <span class="skill-chip">C/C++</span>
-        <span class="skill-chip">MATLAB</span>
-        <span class="skill-chip">JavaScript</span>
-        <span class="skill-chip">R</span>
-      </div>
-    </div>
-    <div class="skill-group service-entry">
-      <h3>Methodology</h3>
-      <div class="skill-chips">
-        <span class="skill-chip">Branch-and-bound</span>
-        <span class="skill-chip">Dynamic programming</span>
-        <span class="skill-chip">Column(-and-row) generation</span>
-        <span class="skill-chip">Branch-and-price(-and-cut)</span>
-        <span class="skill-chip">(Logic-based) Benders decomposition</span>
-        <span class="skill-chip">Metaheuristics</span>
-        <span class="skill-chip">Machine learning</span>
-        <span class="skill-chip">Data analysis</span>
-        <span class="skill-chip">Data structure</span>
-      </div>
-    </div>
-  </div>
 </section>
