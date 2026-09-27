@@ -274,7 +274,8 @@ description: "About Sunkanghong Wang — biography, research interests, skills, 
   <div class="about-service">
     <article class="service-entry">
       <h3 class="service-role">Peer Reviewer</h3>
-      <div class="service-journals"><span class="pub-journal-badge" title="Journal">Omega Computers &amp; Operations Research</span>
+      <div class="service-journals"><span class="pub-journal-badge" title="Journal">Omega</span>
+        <span class="pub-journal-badge" title="Journal">Computers &amp; Operations Research</span>
         <span class="pub-journal-badge" title="Journal">Memetic Computing</span>
         <span class="pub-journal-badge" title="Journal">International Journal of Computational Intelligence Systems</span>
         <span class="pub-journal-badge" title="Journal">The Journal of Supercomputing</span></div>
