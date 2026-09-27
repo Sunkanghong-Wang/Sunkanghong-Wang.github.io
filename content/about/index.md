@@ -94,7 +94,7 @@ description: "About Sunkanghong Wang — biography, research interests, skills, 
 </section>
 
 
-<section class="about-section">
+<section class="about-section" data-studio-section="about-me">
   <h2 class="about-h2">About me</h2>
   <p>🎓 I am currently pursuing a PhD in the Department of Logistics and Maritime Studies at the Faculty of Business, The Hong Kong Polytechnic University (PolyU). I hold a master’s degree in Mechanical Engineering (2026) and a bachelor’s degree in Industrial Engineering (2023), both from&nbsp;<a href="https://www.gdut.edu.cn/" target="_blank" rel="noopener" style="color: rgb(31, 117, 104);">Guangdong University of Technology</a> (GDUT).</p>
   <p>🏆 Throughout my academic journey, I have published <strong>5</strong> papers in leading international journals, received <strong>11</strong> scholarships, secured <strong>11</strong> invention patents, and won <strong>19</strong> competition awards. I was also honored as an Outstanding Graduate of GDUT.</p>
@@ -105,41 +105,76 @@ description: "About Sunkanghong Wang — biography, research interests, skills, 
 
 
 
-<section class="about-section">
-  <h2 class="about-h2">Projects</h2>
-  <ul class="about-projects">
-    <li class="project-item">
-      <div class="project-title-row">
-        <span class="project-time-pill">2025～Present</span>
-        <div class="project-main">“Smart Innovation” — A Digital-Twin-Based Intelligent Leather Nesting System</div>
+<section class="about-section" data-studio-section="interests">
+  <h2 class="about-h2">Research interests</h2>
+  <div class="interest-grid">
+    <div class="interest-card" tabindex="0">
+      <div class="interest-pop">
+        <p>Mixed-integer programming, column generation, branch-and-price, Benders decomposition, exact methods for large-scale combinatorial models.</p>
       </div>
-      <div class="project-extra">Participant ｜ RMB 100,000 ｜ Guangdong Provincial Science and Technology Innovation Strategy Special Fund ｜ Key Program</div>
-    </li>
-    <li class="project-item">
-      <div class="project-title-row">
-        <span class="project-time-pill">2023～2026</span>
-        <div class="project-main">Macro–Micro Hybrid Optimization Methods for Floorplanning in VLSI Circuit Design</div>
+      <div class="interest-icon">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3v18M5.6 5.6l12.8 12.8M18.4 5.6L5.6 18.4"/></svg>
       </div>
-      <div class="project-extra">Participant ｜ RMB 480,000 ｜ National Natural Science Foundation of China (NSFC) ｜ General Program</div>
-    </li>
-  </ul>
-</section>
-
-<section class="about-section">
-  <h2 class="about-h2">Academic Service</h2>
-  <div class="about-service">
-    <article class="service-entry">
-      <h3 class="service-role">Peer Reviewer</h3>
-      <div class="service-journals">
-        <span class="pub-journal-badge" title="Journal">Computers &amp; Operations Research</span>
-        <span class="pub-journal-badge" title="Journal">Memetic Computing</span>
-        <span class="pub-journal-badge" title="Journal">International Journal of Computational Intelligence Systems</span>
-        <span class="pub-journal-badge" title="Journal">The Journal of Supercomputing</span>
+      <h3>Operations Research</h3>
+    </div>
+    <div class="interest-card" tabindex="0">
+      <div class="interest-pop">
+        <p>One- and two-dimensional bin packing (cutting stock) and knapsack problems, together with important variants—for example, guillotine constraints, priority constraints, fragile items, circular containers, and related settings.</p>
       </div>
-    </article>
+      <div class="interest-icon">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      </div>
+      <h3>Packing &amp; Cutting</h3>
+    </div>
+    <div class="interest-card" tabindex="0">
+      <div class="interest-pop">
+        <p>Exact algorithms, Approximation algorithms, metaheuristics, learning-augmented algorithms, problem-specific data structures and search strategies.</p>
+      </div>
+      <div class="interest-icon">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h16"/><path d="M4 5l5 5 5-5 5 9"/><circle cx="4" cy="5" r="1"/><circle cx="9" cy="10" r="1"/><circle cx="14" cy="5" r="1"/><circle cx="19" cy="14" r="1"/></svg>
+      </div>
+      <h3>Algorithm Design</h3>
+    </div>
+    <div class="interest-card" tabindex="0">
+      <div class="interest-pop">
+        <p>Translating optimization advances into production scheduling, layout planning, and waste minimization for manufacturing systems.</p>
+      </div>
+      <div class="interest-icon">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="4" cy="6" r="2"/><circle cx="20" cy="6" r="2"/><circle cx="4" cy="18" r="2"/><circle cx="20" cy="18" r="2"/><path d="M6 6h0M6 7l4 4M18 6l-4 5M6 17l4-4M18 17l-4-3"/></svg>
+      </div>
+      <h3>Industrial Applications</h3>
+    </div>
   </div>
 </section>
-<section class="about-section">
+
+<section class="about-section" data-studio-section="experience">
+  <h2 class="about-h2">Working Experience</h2>
+  <ol class="about-timeline">
+    <li>
+      <span class="t-dot"></span>
+      <div class="t-logo" data-school="BYIT">
+        <img src="/edu-logos/polyu.png" alt="Guangzhou Bingyou Information Technology" onerror="this.style.display='none'" />
+      </div>
+      <div class="t-body">
+        <div class="t-when">Jul 2026 — Sep 2026</div>
+        <div class="t-what">Research Assistant</div>
+        <div class="t-where"><a href="https://www.polyu.edu.hk/" target="_blank" rel="noopener">The Hong Kong Polytechnic University</a> · Hong Kong, China</div>
+      </div>
+    </li>
+    <li>
+      <span class="t-dot"></span>
+      <div class="t-logo" data-school="BYIT">
+        <img src="/edu-logos/bingyou.jpg" alt="Guangzhou Bingyou Information Technology" onerror="this.style.display='none'" />
+      </div>
+      <div class="t-body">
+        <div class="t-when">Jun 2021 — Dec 2023</div>
+        <div class="t-what">Internship · Algorithm Engineer</div>
+        <div class="t-where"><a href="http://www.byopt.cn/" target="_blank" rel="noopener">Persevere Optimization Co., Ltd</a> · Guangzhou, Guangdong, China</div>
+      </div>
+    </li>
+  </ol>
+</section>
+<section class="about-section" data-studio-section="education">
   <h2 class="about-h2">Education</h2>
   <ol class="about-timeline">
     <li>
@@ -213,78 +248,41 @@ description: "About Sunkanghong Wang — biography, research interests, skills, 
 </section>
 
 
-<section class="about-section">
-  <h2 class="about-h2">Experience</h2>
-  <ol class="about-timeline">
-    <li>
-      <span class="t-dot"></span>
-      <div class="t-logo" data-school="BYIT">
-        <img src="/edu-logos/polyu.png" alt="Guangzhou Bingyou Information Technology" onerror="this.style.display='none'" />
+<section class="about-section" data-studio-section="projects">
+  <h2 class="about-h2">Projects</h2>
+  <ul class="about-projects">
+    <li class="project-item">
+      <div class="project-title-row">
+        <span class="project-time-pill">2025～Present</span>
+        <div class="project-main">“Smart Innovation” — A Digital-Twin-Based Intelligent Leather Nesting System</div>
       </div>
-      <div class="t-body">
-        <div class="t-when">Jul 2026 — Sep 2026</div>
-        <div class="t-what">Research Assistant</div>
-        <div class="t-where"><a href="https://www.polyu.edu.hk/" target="_blank" rel="noopener">The Hong Kong Polytechnic University</a> · Hong Kong, China</div>
-      </div>
+      <div class="project-extra">Participant ｜ RMB 100,000 ｜ Guangdong Provincial Science and Technology Innovation Strategy Special Fund ｜ Key Program</div>
     </li>
-    <li>
-      <span class="t-dot"></span>
-      <div class="t-logo" data-school="BYIT">
-        <img src="/edu-logos/bingyou.jpg" alt="Guangzhou Bingyou Information Technology" onerror="this.style.display='none'" />
+    <li class="project-item">
+      <div class="project-title-row">
+        <span class="project-time-pill">2023～2026</span>
+        <div class="project-main">Macro–Micro Hybrid Optimization Methods for Floorplanning in VLSI Circuit Design</div>
       </div>
-      <div class="t-body">
-        <div class="t-when">Jun 2021 — Dec 2023</div>
-        <div class="t-what">Internship · Algorithm Engineer</div>
-        <div class="t-where"><a href="http://www.byopt.cn/" target="_blank" rel="noopener">Persevere Optimization Co., Ltd</a> · Guangzhou, Guangdong, China</div>
-      </div>
+      <div class="project-extra">Participant ｜ RMB 480,000 ｜ National Natural Science Foundation of China (NSFC) ｜ General Program</div>
     </li>
-  </ol>
+  </ul>
 </section>
 
 
-<section class="about-section">
-  <h2 class="about-h2">Research interests</h2>
-  <div class="interest-grid">
-    <div class="interest-card" tabindex="0">
-      <div class="interest-pop">
-        <p>Mixed-integer programming, column generation, branch-and-price, Benders decomposition, exact methods for large-scale combinatorial models.</p>
-      </div>
-      <div class="interest-icon">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3v18M5.6 5.6l12.8 12.8M18.4 5.6L5.6 18.4"/></svg>
-      </div>
-      <h3>Operations Research</h3>
-    </div>
-    <div class="interest-card" tabindex="0">
-      <div class="interest-pop">
-        <p>One- and two-dimensional bin packing (cutting stock) and knapsack problems, together with important variants—for example, guillotine constraints, priority constraints, fragile items, circular containers, and related settings.</p>
-      </div>
-      <div class="interest-icon">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-      </div>
-      <h3>Packing &amp; Cutting</h3>
-    </div>
-    <div class="interest-card" tabindex="0">
-      <div class="interest-pop">
-        <p>Exact algorithms, Approximation algorithms, metaheuristics, learning-augmented algorithms, problem-specific data structures and search strategies.</p>
-      </div>
-      <div class="interest-icon">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h16"/><path d="M4 5l5 5 5-5 5 9"/><circle cx="4" cy="5" r="1"/><circle cx="9" cy="10" r="1"/><circle cx="14" cy="5" r="1"/><circle cx="19" cy="14" r="1"/></svg>
-      </div>
-      <h3>Algorithm Design</h3>
-    </div>
-    <div class="interest-card" tabindex="0">
-      <div class="interest-pop">
-        <p>Translating optimization advances into production scheduling, layout planning, and waste minimization for manufacturing systems.</p>
-      </div>
-      <div class="interest-icon">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="4" cy="6" r="2"/><circle cx="20" cy="6" r="2"/><circle cx="4" cy="18" r="2"/><circle cx="20" cy="18" r="2"/><path d="M6 6h0M6 7l4 4M18 6l-4 5M6 17l4-4M18 17l-4-3"/></svg>
-      </div>
-      <h3>Industrial Applications</h3>
-    </div>
+<section class="about-section" data-studio-section="services">
+  <h2 class="about-h2">Academic Service</h2>
+  <div class="about-service">
+    <article class="service-entry">
+      <h3 class="service-role">Peer Reviewer</h3>
+      <div class="service-journals"><span class="pub-journal-badge" title="Journal">Omega Computers &amp; Operations Research</span>
+        <span class="pub-journal-badge" title="Journal">Memetic Computing</span>
+        <span class="pub-journal-badge" title="Journal">International Journal of Computational Intelligence Systems</span>
+        <span class="pub-journal-badge" title="Journal">The Journal of Supercomputing</span></div>
+    </article>
   </div>
 </section>
 
-<section class="about-section">
+<section class="about-section" data-studio-section="skills">
   <h2 class="about-h2">Skills</h2>
   <div class="skill-groups">
     <div class="skill-group service-entry">
