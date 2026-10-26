@@ -1,9 +1,9 @@
 ---
 title: "Arc-flow formulation and branch-and-price-and-cut algorithm for the bin-packing problem with fragile objects"
 date: 2025-01-01
-tags: ["packing", "fragile objects", "exact algorithm", "branch-and-price-and-cut", "arc-flow"]
-author: ["Sunkanghong Wang", "Shaowen Yao", "Hao Zhang", "Qiang Liu", "Lijun Wei"]
-correspondingAuthor: ["Lijun Wei"]
+tags: [ "packing", "fragile objects", "exact algorithm", "branch-and-price-and-cut", "arc-flow" ]
+author: [ "Sunkanghong Wang", "Shaowen Yao", "Hao Zhang", "Qiang Liu", "Lijun Wei" ]
+correspondingAuthor: [ "Lijun Wei" ]
 supervisedStudents: []
 journal: "Computers & Operations Research"
 volume: 173
@@ -11,7 +11,9 @@ pages: "106878"
 doi: "10.1016/j.cor.2024.106878"
 pubGithub: "https://github.com/WSKH0929/BPC_For_BPPFO_2023"
 cover:
-    image: "cover.png"
+  image: "cover.png"
+aliases:
+  - "/publications/arcflow/"
 ---
 
 ##### Abstract

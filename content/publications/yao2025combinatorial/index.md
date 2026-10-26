@@ -1,9 +1,9 @@
 ---
 title: "A combinatorial Benders decomposition approach for the constrained two-dimensional guillotine cutting problem with defects"
 date: 2025-06-03
-tags: ["cutting", "guillotine cuts", "defect", "combinatorial Benders", "exact algorithm"]
-author: ["Shaowen Yao", "Sunkanghong Wang", "Tai Zhang", "Lijun Wei", "Qiang Liu"]
-correspondingAuthor: ["Lijun Wei"]
+tags: [ "cutting", "guillotine cuts", "defect", "combinatorial Benders", "exact algorithm" ]
+author: [ "Shaowen Yao", "Sunkanghong Wang", "Tai Zhang", "Lijun Wei", "Qiang Liu" ]
+correspondingAuthor: [ "Lijun Wei" ]
 supervisedStudents: []
 journal: "International Journal of Production Research"
 volume: 63
@@ -12,7 +12,9 @@ pages: "8593-8610"
 doi: "10.1080/00207543.2025.2512228"
 pubGithub: ""
 cover:
-    image: "cover.png"
+  image: "cover.png"
+aliases:
+  - "/publications/benders/"
 ---
 
 ##### Abstract

@@ -1,9 +1,9 @@
 ---
 title: "An Efficient Algorithm for Exact SRAM Verification via Novel Pattern Matching Techniques"
 date: 2025-08-26
-tags: ["Design for manufacturability", "SRAM verification", "pattern matching", "spatial indexing", "overlap detection"]
-author: ["Sunkanghong Wang", "Qingsheng Qiu", "Hao Zhang", "Lijun Wei", "Qiang Liu"]
-correspondingAuthor: ["Lijun Wei", "Qiang Liu"]
+tags: [ "Design for manufacturability", "SRAM verification", "pattern matching", "spatial indexing", "overlap detection" ]
+author: [ "Sunkanghong Wang", "Qingsheng Qiu", "Hao Zhang", "Lijun Wei", "Qiang Liu" ]
+correspondingAuthor: [ "Lijun Wei", "Qiang Liu" ]
 supervisedStudents: []
 journal: "IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems"
 volume: 45
@@ -11,7 +11,9 @@ pages: "1827-1840"
 doi: "10.1109/TCAD.2025.3602734"
 pubGithub: "https://github.com/WSKH0929/SRAM-Instances"
 cover:
-    image: "cover.png"
+  image: "cover.png"
+aliases:
+  - "/publications/sram/"
 ---
 
 ##### Abstract

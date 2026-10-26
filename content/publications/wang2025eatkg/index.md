@@ -1,9 +1,9 @@
 ---
 title: "EATKG: An Open-Source Efficient Exact Algorithm for the Two-Dimensional Knapsack Problem with Guillotine Constraints"
 date: 2025-06-03
-tags: ["Cutting and packing", "Two-dimensional knapsack", "Guillotine cuts", "exact algorithm", "Bidirectional tree search"]
-author: ["Sunkanghong Wang", "Roberto Baldacci", "Qiang Liu", "Lijun Wei"]
-correspondingAuthor: ["Lijun Wei"]
+tags: [ "Cutting and packing", "Two-dimensional knapsack", "Guillotine cuts", "exact algorithm", "Bidirectional tree search" ]
+author: [ "Sunkanghong Wang", "Roberto Baldacci", "Qiang Liu", "Lijun Wei" ]
+correspondingAuthor: [ "Lijun Wei" ]
 supervisedStudents: []
 journal: "European Journal of Operational Research"
 volume: 327
@@ -11,7 +11,9 @@ pages: "735-753"
 doi: "10.1016/j.ejor.2025.05.033"
 pubGithub: "https://github.com/WSKH0929/EATKG_For_2KPG"
 cover:
-    image: "cover.png"
+  image: "cover.png"
+aliases:
+  - "/publications/eatkg/"
 ---
 
 ##### Abstract

@@ -1,17 +1,19 @@
 ---
 title: "A goal-driven iterated local search approach based on the maximal-space for the circle bin-packing problem with rectangular items"
 date: 2025-10-13
-tags: ["Packing", "Circle bin-packing", "Goal-driven", "Iterated local search", "Maximal-space"]
-author: ["Sunkanghong Wang", "Runqin Wang", "Hao Zhang", "Fengshi Jing", "Qiang Liu", "Lijun Wei"]
-correspondingAuthor: ["Lijun Wei"]
-supervisedStudents: ["Runqin Wang"]
+tags: [ "Packing", "Circle bin-packing", "Goal-driven", "Iterated local search", "Maximal-space" ]
+author: [ "Sunkanghong Wang", "Runqin Wang", "Hao Zhang", "Fengshi Jing", "Qiang Liu", "Lijun Wei" ]
+correspondingAuthor: [ "Lijun Wei" ]
+supervisedStudents: [ "Runqin Wang" ]
 journal: "Computers & Operations Research"
 volume: 186
 pages: "107301"
 doi: "10.1016/j.cor.2025.107301"
 pubGithub: "https://github.com/WSKH0929/GDILS_For_CBPPRI_2024"
 cover:
-    image: "cover.png"
+  image: "cover.png"
+aliases:
+  - "/publications/circle-bin/"
 ---
 
 ##### Abstract

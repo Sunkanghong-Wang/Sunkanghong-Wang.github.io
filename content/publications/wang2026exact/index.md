@@ -30,6 +30,8 @@ studioSubmission:
   url: "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5322387"
 cover:
   image: "cover.png"
+aliases:
+  - "/publications/exact-algorithms-for-two-dimensional-knapsack-problems-a-unified-framework-with/"
 ---
 
 ##### Abstract
