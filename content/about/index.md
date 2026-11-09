@@ -230,7 +230,7 @@ description: "About Sunkanghong Wang — biography, research interests, skills, 
         <img src="/edu-logos/polyu.png" alt="The Hong Kong Polytechnic University" onerror="this.style.display='none'" />
       </div>
       <div class="t-body">
-        <div class="t-when">Sep 2026 <span class="t-status">expected</span> — Jun 2029 <span class="t-status">expected</span></div>
+        <div class="t-when">Sep 2026 — Jun 2029 <span class="t-status">expected</span></div>
         <div class="t-what">Doctoral Degree in Logistics and Maritime Studies</div>
         <div class="t-where">Faculty of Business · <a href="https://www.polyu.edu.hk/" target="_blank" rel="noopener">The Hong Kong Polytechnic University</a> · Hong Kong SAR, China</div>
         <div class="t-meta">
@@ -247,7 +247,7 @@ description: "About Sunkanghong Wang — biography, research interests, skills, 
         <img src="/edu-logos/gdut.png" alt="Guangdong University of Technology" onerror="this.style.display='none'" />
       </div>
       <div class="t-body">
-        <div class="t-when">Sep 2023 — Jun 2026 <span class="t-status">expected</span></div>
+        <div class="t-when">Sep 2023 — Jun 2026</div>
         <div class="t-what">Master's Degree in Mechanical Engineering</div>
         <div class="t-where">School of Electromechanical Engineering · <a href="https://www.gdut.edu.cn/" target="_blank" rel="noopener">Guangdong University of Technology</a> · Guangzhou, Guangdong, China</div>
         <div class="t-meta">

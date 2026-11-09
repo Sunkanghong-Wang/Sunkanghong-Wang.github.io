@@ -31,28 +31,42 @@
   {{- $safeW = $rawW -}}
 {{- end -}}
 {{- $figExtraClass := cond (ne $safeW "") " md-img-figure--custom-width" "" -}}
+{{- $image := dict "src" $dest "original" $dest -}}
+{{- $url := urls.Parse .Destination -}}
+{{- if and (not $url.IsAbs) (not (strings.HasPrefix .Destination "/")) -}}
+  {{- with .Page.Resources.Get $url.Path -}}
+    {{- if eq .MediaType.MainType "image" -}}
+      {{- $image = partial "responsive-image.html" (dict "resource" . "widths" (slice 480 960 1440)) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $sizes := "(max-width: 768px) calc(100vw - 48px), 720px" -}}
+{{- if and $safeW (not (strings.HasSuffix $safeW "%")) -}}
+  {{- $sizes = printf "(max-width: 768px) calc(100vw - 48px), %s" $safeW -}}
+{{- end -}}
+{{- $imageTag := partial "responsive-image-tag.html" (dict "image" $image "alt" $alt "sizes" $sizes) -}}
 
 {{- if $caption -}}
 <figure class="md-img-figure{{- if $isMoments }} md-img-figure--zoom{{- end }}{{ $figExtraClass }}"{{- if $safeW }} style="width:{{ $safeW }};max-width:{{ $safeW }};margin-inline:auto;"{{- end }}>
   {{- if $isMoments -}}
   <button type="button" class="moments-img-lightbox-trigger" aria-label="{{ $ariaZoom }}">
-    <img src="{{ $dest }}" alt="{{ $alt }}" loading="lazy" decoding="async" />
+    {{ $imageTag }}
   </button>
   {{- else -}}
-  <img src="{{ $dest }}" alt="{{ $alt }}" loading="lazy" decoding="async" />
+  {{ $imageTag }}
   {{- end -}}
   <figcaption class="md-img-caption">{{ $caption }}</figcaption>
 </figure>
 {{- else if $isMoments -}}
 <figure class="md-img-figure md-img-figure--zoom md-img-figure--bare{{ $figExtraClass }}"{{- if $safeW }} style="width:{{ $safeW }};max-width:{{ $safeW }};margin-inline:auto;"{{- end }}>
   <button type="button" class="moments-img-lightbox-trigger" aria-label="{{ $ariaZoom }}">
-    <img src="{{ $dest }}" alt="{{ $alt }}" loading="lazy" decoding="async" />
+    {{ $imageTag }}
   </button>
 </figure>
 {{- else if $safeW -}}
 <figure class="md-img-figure md-img-figure--custom-width" style="width:{{ $safeW }};max-width:{{ $safeW }};margin-inline:auto;">
-  <img src="{{ $dest }}" alt="{{ $alt }}" loading="lazy" decoding="async" />
+  {{ $imageTag }}
 </figure>
 {{- else -}}
-<img src="{{ $dest }}" alt="{{ $alt }}" loading="lazy" decoding="async" />
+{{ $imageTag }}
 {{- end -}}

@@ -28,27 +28,30 @@
 <script>
     let menu = document.getElementById('menu')
     if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        try { menu.scrollLeft = localStorage.getItem("menu-scroll-position"); } catch (_) { /* Storage is optional. */ }
         menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+            try { localStorage.setItem("menu-scroll-position", menu.scrollLeft); } catch (_) { /* Keep native scrolling usable. */ }
         }
     }
 
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener("click", function (e) {
+            var id;
+            try { id = decodeURIComponent(this.getAttribute("href").substr(1)); } catch (_) { return; }
+            var target = document.getElementById(id);
+            if (!target) return;
             e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
             if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                target.scrollIntoView({
                     behavior: "smooth"
                 });
             } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+                target.scrollIntoView();
             }
             if (id === "top") {
                 history.replaceState(null, null, " ");
             } else {
-                history.pushState(null, null, `#${id}`);
+                history.pushState(null, null, `#${encodeURIComponent(id)}`);
             }
         });
     });
@@ -76,10 +79,10 @@
     document.getElementById("theme-toggle").addEventListener("click", () => {
         if (document.body.className.includes("dark")) {
             document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
+            try { localStorage.setItem("pref-theme", 'light'); } catch (_) { /* Theme still works without storage. */ }
         } else {
             document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
+            try { localStorage.setItem("pref-theme", 'dark'); } catch (_) { /* Theme still works without storage. */ }
         }
     })
 
@@ -94,31 +97,50 @@
         const copybutton = document.createElement('button');
         copybutton.classList.add('copy-code');
         copybutton.innerHTML = '{{- i18n "code_copy" | default "copy" }}';
+        let resetCopyTimer;
 
         function copyingDone() {
             copybutton.innerHTML = '{{- i18n "code_copied" | default "copied!" }}';
-            setTimeout(() => {
+            resetCopyTimer = setTimeout(() => {
                 copybutton.innerHTML = '{{- i18n "code_copy" | default "copy" }}';
             }, 2000);
         }
 
-        copybutton.addEventListener('click', (cb) => {
-            if ('clipboard' in navigator) {
-                navigator.clipboard.writeText(codeblock.textContent);
-                copyingDone();
-                return;
-            }
-
-            const range = document.createRange();
-            range.selectNodeContents(codeblock);
-            const selection = window.getSelection();
-            selection.removeAllRanges();
-            selection.addRange(range);
+        function selectCode() {
             try {
-                document.execCommand('copy');
+                const range = document.createRange();
+                range.selectNodeContents(codeblock);
+                const selection = window.getSelection();
+                if (!selection) return;
+                selection.removeAllRanges();
+                selection.addRange(range);
+                return selection;
+            } catch (_) { /* The user can still select the visible code manually. */ }
+        }
+
+        copybutton.addEventListener('click', async () => {
+            if (copybutton.disabled) return;
+            clearTimeout(resetCopyTimer);
+            copybutton.disabled = true;
+            try {
+                if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+                    await navigator.clipboard.writeText(codeblock.textContent);
+                } else {
+                    const selection = selectCode();
+                    if (!selection || !document.execCommand('copy')) throw new Error('Copy not available');
+                    selection.removeAllRanges();
+                }
+                copybutton.title = '';
                 copyingDone();
-            } catch (e) { };
-            selection.removeRange(range);
+            } catch (_) {
+                const selected = selectCode();
+                copybutton.innerHTML = 'Copy failed';
+                copybutton.title = selected
+                    ? 'Text selected. Press Ctrl+C or ⌘C to copy manually.'
+                    : 'Select the code and press Ctrl+C or ⌘C to copy manually.';
+            } finally {
+                copybutton.disabled = false;
+            }
         });
 
         if (container.classList.contains("highlight")) {

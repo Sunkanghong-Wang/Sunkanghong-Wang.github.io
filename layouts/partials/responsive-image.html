@@ -1,0 +1,33 @@
+{{- /* Local images only. Derived WebP files never replace the original resource.
+     GIF (including animation) and unsupported formats deliberately pass through. */ -}}
+{{- $resource := .resource -}}
+{{- $original := .original -}}
+{{- if not $original -}}
+  {{- $original = $resource.RelPermalink -}}
+{{- end -}}
+{{- $src := $original -}}
+{{- $srcset := slice -}}
+{{- $width := 0 -}}
+{{- $height := 0 -}}
+{{- $raster := in (slice "jpeg" "png" "webp" "tiff" "bmp" "gif") $resource.MediaType.SubType -}}
+{{- if $raster -}}
+  {{- $width = $resource.Width -}}
+  {{- $height = $resource.Height -}}
+  {{- if ne $resource.MediaType.SubType "gif" -}}
+    {{- $widths := slice -}}
+    {{- range .widths -}}
+      {{- $widths = $widths | append (math.Min . $width | int) -}}
+    {{- end -}}
+    {{- range ($widths | uniq | sort) -}}
+      {{- $image := $resource.Resize (printf "%dx webp q82" .) -}}
+      {{- $src = $image.RelPermalink -}}
+      {{- $srcset = $srcset | append (printf "%s %dw" $image.RelPermalink $image.Width) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- if ne $src $original -}}
+  {{- /* Replacing a cover/photo also invalidates cached full-size lightbox images,
+       without publishing a second fingerprinted copy of the large original. */ -}}
+  {{- $original = printf "%s?v=%s" $original (md5 $src) -}}
+{{- end -}}
+{{- return (dict "src" $src "srcset" (delimit $srcset ", ") "original" $original "width" $width "height" $height) -}}

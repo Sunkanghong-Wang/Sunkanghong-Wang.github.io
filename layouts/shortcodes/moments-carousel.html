@@ -13,7 +13,7 @@
 {{- end }}
 {{- $ariaLabel := .Page.Title }}
 {{- $n := len $resources }}
-{{- $cid := md5 $page.RelPermalink }}
+{{- $cid := md5 (printf "%s:%d" $page.RelPermalink .Ordinal) }}
 {{- $caption := strings.TrimSpace .Inner }}
 <figure class="moments-carousel-block">
     <div
@@ -27,6 +27,7 @@
         <div class="moments-carousel-viewport">
             <div class="moments-carousel-track">
                 {{- range $i, $r := $resources }}
+                {{- $image := partial "responsive-image.html" (dict "resource" $r "widths" (slice 480 960 1440)) }}
                 <div
                     class="moments-carousel-slide"
                     id="carousel-slide-{{ $cid }}-{{ $i }}"
@@ -40,14 +41,17 @@
                             type="button"
                             class="moments-img-lightbox-trigger"
                             aria-label="{{ printf "View larger image %d of %d" (add $i 1) $n }}"
+                            {{- if ne $i 0 }} tabindex="-1" {{- end }}
                         >
                             <img
-                                src="{{ $r.RelPermalink }}"
+                                {{ if eq $i 0 }}src="{{ $image.src }}" {{ with $image.srcset }}srcset="{{ . }}"{{ end }}{{ else }}data-src="{{ $image.src }}" {{ with $image.srcset }}data-srcset="{{ . }}"{{ end }}{{ end }}
+                                sizes="(max-width: 768px) calc(100vw - 48px), 720px"
+                                data-original="{{ $image.original }}"
                                 alt=""
                                 loading="{{ cond (eq $i 0) "eager" "lazy" }}"
                                 decoding="async"
-                                {{- with $r.Width }} width="{{ . }}" {{- end }}
-                                {{- with $r.Height }} height="{{ . }}" {{- end }}
+                                {{- with $image.width }} width="{{ . }}" {{- end }}
+                                {{- with $image.height }} height="{{ . }}" {{- end }}
                             />
                         </button>
                     </figure>
@@ -55,6 +59,7 @@
                 {{- end }}
             </div>
         </div>
+        <noscript><p>View photos: {{ range $i, $r := $resources }}<a href="{{ $r.RelPermalink }}">{{ add $i 1 }}</a> {{ end }}</p></noscript>
         {{- if $caption }}
         <p id="moments-carousel-caption-{{ $cid }}" class="md-img-caption moments-carousel-unified-caption">{{ $caption | $.Page.RenderString }}</p>
         {{- end }}
@@ -103,7 +108,18 @@
         i = clamp(to);
         track.style.transform = "translateX(-" + i * 100 + "%)";
         slides.forEach(function (el, j) {
+            var button = el.querySelector(".moments-img-lightbox-trigger");
+            if (button && j !== i && document.activeElement === button) root.focus({ preventScroll: true });
             el.setAttribute("aria-hidden", j === i ? "false" : "true");
+            if (button) button.tabIndex = j === i ? 0 : -1;
+            if (j !== i) return;
+            var image = el.querySelector("img[data-src]");
+            if (!image) return;
+            // Set srcset first so selecting a slide does not fetch both fallback and chosen sizes.
+            if (image.dataset.srcset) image.setAttribute("srcset", image.dataset.srcset);
+            image.setAttribute("src", image.dataset.src);
+            image.removeAttribute("data-src");
+            image.removeAttribute("data-srcset");
         });
         dots.forEach(function (d, j) {
             if (j === i) d.setAttribute("aria-current", "true");

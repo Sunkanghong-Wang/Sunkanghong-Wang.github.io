@@ -1,0 +1,14 @@
+{{- /* A standalone photo with the legacy Moments presentation, without rewriting its source file. */ -}}
+{{- $name := .Get "src" -}}
+{{- $alt := .Get "alt" | default "" -}}
+{{- $rawWidth := .Get "width" | default "100%" -}}
+{{- $width := "100%" -}}
+{{- if findRE `^\d+(\.\d+)?(%|px|rem)$` $rawWidth -}}
+  {{- $width = $rawWidth -}}
+{{- end -}}
+{{- with .Page.Resources.Get $name -}}
+  {{- $image := partial "responsive-image.html" (dict "resource" . "widths" (slice 480 960 1440)) -}}
+  <img src="{{ $image.src }}" {{ with $image.srcset }}srcset="{{ . }}" sizes="(max-width: 768px) calc(100vw - 48px), 720px"{{ end }} data-original="{{ $image.original }}" alt="{{ $alt }}" style="width:{{ $width }};height:auto;display:block;margin-inline:auto;border-radius:8px;box-shadow:0 1px 3px rgba(15,25,50,0.08);" loading="lazy" decoding="async" {{ with $image.width }}width="{{ . }}"{{ end }} {{ with $image.height }}height="{{ . }}"{{ end }} />
+{{- else -}}
+  {{- errorf "responsive-photo: resource %q not found in %s" $name .Page.File.Path -}}
+{{- end -}}

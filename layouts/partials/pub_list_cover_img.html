@@ -1,22 +1,31 @@
-{{- /* Publication card cover: same bundle lookup as theme cover.html; ?s=byteSize busts browser cache when file is replaced. Context = publication Page */ -}}
+{{- /* Responsive previews keep the untouched original available to the lightbox. Context = publication Page. */ -}}
 {{- $pub := . }}
 {{- $isHidden := ($pub.Param "cover.hiddenInList") | default ($pub.Param "cover.hidden") | default false }}
 {{- if not $isHidden }}
   {{- with $pub.Params.cover.image }}
     {{- $path := . }}
     {{- $img := "" }}
-    {{- if eq ($pub.Params.cover.relative | default true) false }}
+    {{- $original := "" }}
+    {{- $srcset := "" }}
+    {{- $width := 0 }}
+    {{- $height := 0 }}
+    {{- if or (eq $pub.Params.cover.relative false) (urls.Parse $path).IsAbs (strings.HasPrefix $path "/") }}
       {{- $img = $path | absURL }}
     {{- else }}
-      {{- $res := ($pub.Resources.ByType "image").GetMatch (printf "*%s*" $path) }}
+      {{- $res := $pub.Resources.Get $path }}
       {{- if $res }}
-        {{- $img = ($res | fingerprint "md5").RelPermalink | absURL }}
+        {{- $preview := partial "responsive-image.html" (dict "resource" $res "widths" (slice 180 360 720)) }}
+        {{- $img = $preview.src }}
+        {{- $original = $preview.original }}
+        {{- $srcset = $preview.srcset }}
+        {{- $width = $preview.width }}
+        {{- $height = $preview.height }}
       {{- else }}
         {{- $img = path.Join $pub.RelPermalink $path | absURL }}
       {{- end }}
     {{- end }}
     <button type="button" class="pub-cover-lightbox-trigger" aria-label="{{ printf "View larger cover image: %s" ($pub.Title | plainify) }}">
-      <img src="{{ $img }}" alt="{{ $pub.Params.cover.alt | default ($pub.Title | plainify) }}" loading="lazy">
+      <img src="{{ $img }}" {{ with $srcset }}srcset="{{ . }}" sizes="(max-width: 600px) 140px, 180px"{{ end }} data-original="{{ $original | default $img }}" alt="{{ $pub.Params.cover.alt | default ($pub.Title | plainify) }}" loading="lazy" decoding="async" {{ with $width }}width="{{ . }}"{{ end }} {{ with $height }}height="{{ . }}"{{ end }}>
     </button>
   {{- end }}
 {{- end }}

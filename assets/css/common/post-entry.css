@@ -258,7 +258,9 @@ em.ongoing-papers-journal,
 }
 
 .meta-journal {
-    white-space: nowrap;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
     display: inline-block;
 }
 
@@ -473,6 +475,11 @@ em.ongoing-papers-journal,
         flex-direction: column;
     }
 
+    .post-entry .entry-body {
+        width: 100%;
+        overflow-wrap: anywhere;
+    }
+
     .post-entry .entry-cover {
         width: 100%;
         max-width: 240px;
@@ -535,6 +542,20 @@ body.pub-section-list .post-content .about-section.patents-feed-section > .paten
     flex: 0 0 auto;
     display: flex;
     align-items: center;
+}
+
+@media (max-width: 600px) {
+    .pub-notes-toolbar-main {
+        flex-basis: 100%;
+    }
+
+    .pub-notes-toolbar-actions {
+        margin-left: auto;
+    }
+
+    body.pub-section-list .pub-notes-toolbar-main .patents-notes {
+        text-align: left;
+    }
 }
 
 body.pub-section-list .pub-notes-toolbar-actions .pub-view-toolbar-wrap {
@@ -874,13 +895,13 @@ body.pub-list-view .pub-bibliography-list {
 }
 
 body.pub-list-view .pub-layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
 }
 
 /* Publications page layout: entries on left, timeline on right */
 .pub-layout {
     display: grid;
-    grid-template-columns: 1fr 260px;
+    grid-template-columns: minmax(0, 1fr) 260px;
     gap: calc(var(--gap) * 2);
     align-items: start;
     max-width: var(--pub-layout-max);
@@ -907,6 +928,7 @@ body.pub-list-view .pub-layout {
 
 /* Timeline sidebar */
 .pub-timeline {
+    min-width: 0;
     position: sticky;
     top: calc(var(--header-height) + var(--gap));
     padding: var(--gap) 0;
@@ -1070,7 +1092,7 @@ body.pub-list-view .pub-layout {
 /* Responsive: stack layout on smaller screens */
 @media (max-width: 900px) {
     .pub-layout {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
     }
 
     .pub-timeline {
@@ -1109,20 +1131,26 @@ body.pub-list-view .pub-layout {
     }
 
     .timeline-year-pubs {
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 4px 12px;
+        flex-direction: column;
+        gap: 6px;
         margin-top: 4px;
     }
 
     .timeline-pub-item {
-        flex: 0 0 auto;
+        flex: 0 1 auto;
+        max-width: 100%;
     }
 
     .timeline-title {
+        display: block;
         white-space: normal;
+        overflow-wrap: anywhere;
         overflow: visible;
         text-overflow: clip;
+    }
+
+    .timeline-title::before {
+        margin-right: 6px;
     }
 
     .timeline-title-tooltip {

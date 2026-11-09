@@ -1,0 +1,1 @@
+<img src="{{ .image.src }}" {{ with .image.srcset }}srcset="{{ . }}" sizes="{{ $.sizes }}"{{ end }} data-original="{{ .image.original }}" alt="{{ .alt }}" loading="lazy" decoding="async" {{ with .image.width }}width="{{ . }}"{{ end }} {{ with .image.height }}height="{{ . }}"{{ end }} />

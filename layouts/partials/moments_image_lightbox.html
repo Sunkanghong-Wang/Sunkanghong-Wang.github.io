@@ -1,7 +1,7 @@
 <dialog class="moments-img-lightbox" aria-modal="true" aria-label="Image preview">
   <div class="moments-img-lightbox-inner">
     <button type="button" class="moments-img-lightbox-close" aria-label="Close">&times;</button>
-    <img class="moments-img-lightbox-img" src="" alt="" decoding="async" />
+    <img class="moments-img-lightbox-img" alt="" decoding="async" />
   </div>
 </dialog>
 <script>
@@ -24,8 +24,10 @@
     }
 
     function openFromImg(im) {
-      if (!im || !im.getAttribute("src")) return;
-      imgEl.src = im.currentSrc || im.src;
+      if (!im) return;
+      var original = im.getAttribute("data-original") || im.currentSrc || im.getAttribute("src");
+      if (!original) return;
+      imgEl.src = original;
       imgEl.alt = im.alt || "";
       document.documentElement.classList.add("moments-img-lightbox-open");
       dlg.showModal();

@@ -155,11 +155,20 @@
 }
 
 @media (max-width: 720px) {
+    /* Anchor the tooltip to the full logo row, not the counter at its right edge. */
+    .header .logo {
+        position: relative;
+    }
+
     .site-pageviews {
+        position: static;
         margin-inline-start: 8px;
     }
 
     .site-pageviews-tooltip {
-        max-width: min(260px, calc(100vw - var(--gap) * 2));
+        left: 0;
+        right: 0;
+        width: auto;
+        max-width: 100%;
     }
 }

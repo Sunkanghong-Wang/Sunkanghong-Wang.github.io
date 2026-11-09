@@ -1,0 +1,41 @@
+{{- /* Shared, conservative person-name parser. Never expand initials or transliterate names. */ -}}
+{{- $name := strings.TrimSpace (replaceRE `\s+` " " (printf "%v" .displayName)) -}}
+{{- $family := $name -}}
+{{- $given := "" -}}
+{{- $suffix := "" -}}
+{{- if and $name (not (findRE `[^\p{Latin}\p{M}\s.,'’\-]` $name)) -}}
+  {{- $commas := split $name "," -}}
+  {{- if eq (len $commas) 2 -}}
+    {{- $family = strings.TrimSpace (index $commas 0) -}}
+    {{- $given = strings.TrimSpace (index $commas 1) -}}
+  {{- else if eq (len $commas) 3 -}}
+    {{- /* BibTeX's explicit Family, Jr., Given notation. */ -}}
+    {{- $family = strings.TrimSpace (index $commas 0) -}}
+    {{- $suffix = strings.TrimSpace (index $commas 1) -}}
+    {{- $given = strings.TrimSpace (index $commas 2) -}}
+  {{- else if eq (len $commas) 1 -}}
+    {{- $trailingInitials := `^(.+?)\.?\s+((?:\p{Lu}\.[\s-]*)+)$` -}}
+    {{- if findRE $trailingInitials $name -}}
+      {{- $family = strings.TrimRight "." (strings.TrimSpace (replaceRE $trailingInitials "$1" $name)) -}}
+      {{- $given = strings.TrimSpace (replaceRE $trailingInitials "$2" $name) -}}
+    {{- else if findRE `^(?:\p{Lu}\.[\s-]*)+\s+.+$` $name -}}
+      {{- $given = strings.TrimSpace (index (findRE `^(?:\p{Lu}\.[\s-]*)+` $name 1) 0) -}}
+      {{- $family = strings.TrimSpace (replaceRE `^(?:\p{Lu}\.[\s-]*)+` "" $name) -}}
+    {{- else -}}
+      {{- $words := split $name " " -}}
+      {{- if gt (len $words) 1 -}}
+        {{- $familyAt := sub (len $words) 1 -}}
+        {{- if gt $familyAt 1 -}}
+          {{- range seq (sub $familyAt 1) -1 1 -}}
+            {{- if and (eq . (sub $familyAt 1)) (in (slice "de" "del" "der" "van" "von" "da" "di" "la" "le" "dos" "du" "den" "ten" "ter") (lower (index $words .))) -}}
+              {{- $familyAt = sub $familyAt 1 -}}
+            {{- end -}}
+          {{- end -}}
+        {{- end -}}
+        {{- $family = delimit (after $familyAt $words) " " -}}
+        {{- $given = delimit (first $familyAt $words) " " -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return (dict "family" $family "given" $given "suffix" $suffix) -}}

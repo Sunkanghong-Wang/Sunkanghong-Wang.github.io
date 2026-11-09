@@ -2,16 +2,20 @@
 {{- $alt := site.Params.about.avatarAlt | default "Sunkanghong Wang" -}}
 {{- $exts := slice "jpg" "jpeg" "png" "webp" "gif" -}}
 {{- $src := "" -}}
+{{- $file := "" -}}
 {{- range $exts -}}
   {{- if not $src -}}
     {{- $path := printf "static/%s.%s" $base . -}}
     {{- if fileExists $path -}}
       {{- $src = printf "/%s.%s" $base . -}}
+      {{- $file = $path -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}
 {{- if $src -}}
-<img src="{{ $src | relURL }}" alt="{{ $alt }}" decoding="async" />
+{{- $resource := resources.FromString (printf "site-image-previews/%s" (strings.TrimPrefix "static/" $file)) (readFile $file) -}}
+{{- $image := partial "responsive-image.html" (dict "resource" $resource "original" ($src | relURL) "widths" (slice 200 400 600)) -}}
+<img src="{{ $image.src }}" {{ with $image.srcset }}srcset="{{ . }}" sizes="200px"{{ end }} data-original="{{ $src | relURL }}" alt="{{ $alt }}" decoding="async" fetchpriority="high" {{ with $image.width }}width="{{ . }}"{{ end }} {{ with $image.height }}height="{{ . }}"{{ end }} />
 {{- else -}}
 {{- warnf "About avatar missing: add static/%s.<jpg|jpeg|png|webp|gif> (params.about.avatarBaseName)" $base -}}
 {{- end -}}

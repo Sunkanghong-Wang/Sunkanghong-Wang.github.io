@@ -173,11 +173,13 @@
   document.addEventListener("DOMContentLoaded", function () {
     var btn = document.querySelector(".pub-view-toggle");
     if (!btn) return;
-    sync(btn, localStorage.getItem(KEY) === "list");
+    var initialList = false;
+    try { initialList = localStorage.getItem(KEY) === "list"; } catch (_) { /* Storage is optional. */ }
+    sync(btn, initialList);
     btn.addEventListener("click", function () {
       var on = !document.body.classList.contains("pub-list-view");
-      localStorage.setItem(KEY, on ? "list" : "cards");
       sync(btn, on);
+      try { localStorage.setItem(KEY, on ? "list" : "cards"); } catch (_) { /* Keep this visit's in-memory choice. */ }
     });
   });
 })();

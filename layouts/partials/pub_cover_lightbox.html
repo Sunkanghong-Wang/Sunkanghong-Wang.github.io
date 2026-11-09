@@ -1,7 +1,7 @@
 <dialog class="pub-cover-lightbox" aria-modal="true" aria-label="Publication cover preview">
   <div class="pub-cover-lightbox-inner">
     <button type="button" class="pub-cover-lightbox-close" aria-label="Close">&times;</button>
-    <img class="pub-cover-lightbox-img" src="" alt="" decoding="async">
+    <img class="pub-cover-lightbox-img" alt="" decoding="async">
   </div>
 </dialog>
 <script>
@@ -25,8 +25,10 @@
 
     function openFrom(btn) {
       var im = btn.querySelector("img");
-      if (!im || !im.getAttribute("src")) return;
-      imgEl.src = im.currentSrc || im.src;
+      if (!im) return;
+      var original = im.getAttribute("data-original") || im.currentSrc || im.getAttribute("src");
+      if (!original) return;
+      imgEl.src = original;
       imgEl.alt = im.alt || "";
       document.documentElement.classList.add("pub-cover-lightbox-open");
       dlg.showModal();

@@ -12,5 +12,5 @@ After the trip, I came back to the site occasionally—tweaking, refining, nudgi
 
 I don't think it's perfect. I don't think it ever will be—and honestly, that's fine 😄. I'll keep improving it as I go. If you spot anything off, or have a suggestion, I'd genuinely love to hear it. You can find my contact details on the About page 👋
 
-<img src="./image.png" alt="The café where it all started — Guiyang, Guizhou, China, April 27, 2026." style="width:70%;height:auto;display:block;margin-inline:auto;border-radius:8px;box-shadow:0 1px 3px rgba(15,25,50,0.08);" loading="lazy" decoding="async" />
+{{< responsive-photo src="image.png" alt="The café where it all started — Guiyang, Guizhou, China, April 27, 2026." width="70%" >}}
 <p class="md-img-caption">The café where it all started — Guiyang, Guizhou, China, April 27, 2026.</p>

@@ -5,7 +5,10 @@
 {{- $authorLine := partial "pub_apa_reference_author_line.html" $pg | strings.TrimSpace }}
 {{- $year := "n.d." }}
 {{- if not $pg.Date.IsZero }}{{ $year = $pg.Date.Format "2006" }}{{ end }}
-{{- $bibtexKey := $pg.Params.bibtexKey | default (printf "%s%s" $pg.File.ContentBaseName $year) }}
+{{- $slug := $pg.Slug | default $pg.File.ContentBaseName }}
+{{- $defaultKey := printf "%s%s" $slug $year }}
+{{- if findRE `^[a-z]+[0-9]{4}[a-z0-9]+$` $slug }}{{ $defaultKey = $slug }}{{ end }}
+{{- $bibtexKey := $pg.Params.bibtexKey | default $defaultKey }}
 {{- $apaTitle := partial "pub_apa_sentence_case_title.html" $pg.Title | strings.TrimSpace }}
 {{- if not $apaTitle }}{{ $apaTitle = $pg.Title }}{{ end }}
 {{- $journal := $pg.Params.journal }}
